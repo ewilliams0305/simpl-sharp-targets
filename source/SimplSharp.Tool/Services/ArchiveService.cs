@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿#pragma warning disable IDE0290
+#pragma warning disable CA1822
+
+using Microsoft.Extensions.Logging;
 using System.IO.Compression;
 
 namespace SimplSharp.Tool;
 
-public sealed class ArchiveService
+internal sealed class ArchiveService
 {
     private readonly ILogger<ArchiveService> _logger;
 
@@ -74,7 +77,7 @@ public sealed class ArchiveService
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 
-    private bool IsFileArchive(string filename) =>
+    private static bool IsFileArchive(string filename) =>
         filename.EndsWith(".zip") ||
         filename.EndsWith(Global.LibraryExtension) ||
         filename.EndsWith(Global.ProgramExtension) ||

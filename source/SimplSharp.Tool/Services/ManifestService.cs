@@ -12,7 +12,7 @@ namespace SimplSharp.Tool;
 /// <summary>
 /// Collection of methods used to generate the XML manifest files.
 /// </summary>
-public sealed class ManifestService
+internal sealed class ManifestService
 {
     private readonly ILogger<ManifestService> _logger;
 

@@ -10,7 +10,7 @@ namespace SimplSharp.Tool;
 /// <summary>
 /// Creates a Simpl Sharp Library CLZ archive from a target DLL assembly
 /// </summary>
-public sealed class ClzCommand
+internal sealed class ClzCommand
 {
     private readonly ILogger<ClzCommand> _logger;
     private readonly ManifestService _manifestService;
@@ -87,6 +87,8 @@ public sealed class ClzCommand
                 _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
                 Environment.Exit(-1);
             }
+
+            _logger.LogInformation("Successfully created {extension} from {assembly} located at {targetPath}", Global.LibraryExtension, assembly, targetPath);
 
             Environment.Exit(0);
         }

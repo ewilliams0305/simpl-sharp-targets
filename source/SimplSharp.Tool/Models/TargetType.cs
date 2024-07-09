@@ -3,7 +3,7 @@
 /// <summary>
 /// The type of simpl sharp library archive being targeted
 /// </summary>
-public enum TargetType
+internal enum TargetType
 {
     /// <summary>
     /// SimplSharp Library

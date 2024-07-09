@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Targets", "SimplSharp.Targets.csproj", "{2BBF248F-9B8B-4DCC-B9A0-10FFD54C0FD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Targets", "SimplSharp.Targets\SimplSharp.Targets.csproj", "{2BBF248F-9B8B-4DCC-B9A0-10FFD54C0FD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Tool", "..\SimplSharp.Tool\SimplSharp.Tool.csproj", "{E77030BF-A3FD-4763-A407-60C652531E50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Tool", "SimplSharp.Tool\SimplSharp.Tool.csproj", "{E77030BF-A3FD-4763-A407-60C652531E50}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B65F950E-32F9-42F5-BDEE-746766B0F104}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{B65F950E-32F9-42F5-BDEE-746766B0F104}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{EAC34DE8-2F72-4DF9-904F-EABF4532A9D2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assests", "assests", "{EAC34DE8-2F72-4DF9-904F-EABF4532A9D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Library", "..\SimplSharp.Library\SimplSharp.Library.csproj", "{4C8EE47C-5568-4D6B-9040-AAB7960FFF41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Library", "SimplSharp.Library\SimplSharp.Library.csproj", "{4C8EE47C-5568-4D6B-9040-AAB7960FFF41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Program", "..\SimplSharp.Program\SimplSharp.Program.csproj", "{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Program", "SimplSharp.Program\SimplSharp.Program.csproj", "{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CAC12CC3-5310-4450-9406-4731559BEC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplSharp.Tool.Tests", "..\tests\SimplSharp.Tool.Tests\SimplSharp.Tool.Tests.csproj", "{BF41CEFE-054E-4B11-9170-A09079B2E763}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,10 @@ Global
 		{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF41CEFE-054E-4B11-9170-A09079B2E763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF41CEFE-054E-4B11-9170-A09079B2E763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF41CEFE-054E-4B11-9170-A09079B2E763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF41CEFE-054E-4B11-9170-A09079B2E763}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +54,7 @@ Global
 		{E77030BF-A3FD-4763-A407-60C652531E50} = {B65F950E-32F9-42F5-BDEE-746766B0F104}
 		{4C8EE47C-5568-4D6B-9040-AAB7960FFF41} = {EAC34DE8-2F72-4DF9-904F-EABF4532A9D2}
 		{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE} = {EAC34DE8-2F72-4DF9-904F-EABF4532A9D2}
+		{BF41CEFE-054E-4B11-9170-A09079B2E763} = {CAC12CC3-5310-4450-9406-4731559BEC22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64F92463-70FE-4CDD-8B58-FF9B32A0452D}
