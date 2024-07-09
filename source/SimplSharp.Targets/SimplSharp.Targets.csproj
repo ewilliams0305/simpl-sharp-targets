@@ -4,10 +4,28 @@
     <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <IsPackable>true</IsPackable>    
+    <IsPackable>true</IsPackable>
+    <Title>Simpl Sharp Targets</Title>
+    <Description>Build targets using the custom dotnet cli tool to generate SIMPL Sharp archives.</Description>
+    <PackageProjectUrl>https://github.com/ewilliams0305/simpl-sharp-targets</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ewilliams0305/simpl-sharp-targets</RepositoryUrl>
+    <PackageTags>Crestron;SimplSharp</PackageTags>
+    <PackageIcon>crestron-logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>    
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="build\SimplSharpLibrary.targets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\crestron-logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 </Project>

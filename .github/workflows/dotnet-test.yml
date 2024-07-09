@@ -29,5 +29,11 @@ jobs:
     - name: Build Solution
       run: dotnet build $SOLUTION --no-restore
 
+    - name: Chnage Directory
+      run: cd .
+      
+    - name: View Location
+      run: ls -R
+
     - name: Test Solution
       run: dotnet test $SOLUTION --no-restore --verbosity normal
