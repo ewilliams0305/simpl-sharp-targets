@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SimplSharp.Tool": {
+      "commandName": "Project"
+    },
+    "CLZ": {
+      "commandName": "Project",
+      "commandLineArgs": "clz -p ..\\SimplSharp.Library\\bin\\Debug\\net472\\SimplSharp.Library.dll",
+      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\source\\SimplSharp.Tool"
+    }
+  }
+}
