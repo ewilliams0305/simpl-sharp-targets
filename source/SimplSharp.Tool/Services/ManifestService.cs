@@ -44,7 +44,7 @@ internal sealed class ManifestService
             var name = targetName.Replace(Global.LibraryExtension, "");
 
             var directory = new FileInfo(targetPath).Directory!;
-            var sdkVersion = FileVersionInfo.GetVersionInfo(Path.Combine(directory.FullName, "SimplSharpProgrammingInterfaces.dll")).ProductVersion;
+            var sdkVersion = FileVersionInfo.GetVersionInfo(Path.Combine(directory.FullName, "SimplSharpProgrammingInterfaces.dll"));
       
             var version = assembly.GetName().Version!.ToString();
 
@@ -92,7 +92,7 @@ internal sealed class ManifestService
             root.AppendChild(plugin);
 
             node = xmlDoc.CreateElement("Include4.dat");
-            node.AppendChild(xmlDoc.CreateTextNode(sdkVersion));
+            node.AppendChild(xmlDoc.CreateTextNode($"{sdkVersion.ProductMajorPart}.{sdkVersion.ProductMinorPart}.{sdkVersion.ProductBuildPart}" ));
             plugin.AppendChild(node);
 
             manifest = xmlDoc;

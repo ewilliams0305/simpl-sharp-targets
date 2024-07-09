@@ -22,10 +22,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.x
-
-    - name: Prep packages
-      run: dotnet nuget add source --username ewilliams0305 --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/CeneroLLC/index.json"
-
+        
     - name: Restore dependencies
       run: dotnet restore $SOLUTION
       

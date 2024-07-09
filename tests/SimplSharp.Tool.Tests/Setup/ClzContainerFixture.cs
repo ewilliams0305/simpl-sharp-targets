@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace SimplSharp.Tool.Tests.Setup;
 
@@ -9,14 +10,19 @@ namespace SimplSharp.Tool.Tests.Setup;
 /// </summary>
 public class ClzContainerFixture : IAsyncLifetime
 {
+
+    public string ReferencedSdkVersion { get; set; } = string.Empty;
+
 #if DEBUG
     public const string ExePath = @"../../../../../source/SimplSharp.Tool/bin/Debug/net8.0/SimplSharp.Tool.exe";
     public const string TargetLibraryPath = @"../../../../../source/SimplSharp.Library/bin/Debug/net472/SimplSharp.Library.dll";
+    public const string TargetLibraryProject = @"../../../../../source/SimplSharp.Library/SimplSharp.Library.csproj";
     public const string TargetArchivePath = @"../../../../../source/SimplSharp.Library/bin/Debug/net472/SimplSharp.Library.clz";
     public const string ManifestPath = @"../../../../../source/SimplSharp.Library/bin/Debug/net472/ProgramInfo.config";
 #else
     public const string ExePath = @"../../../../../source/SimplSharp.Tool/bin/Release/net8.0/SimplSharp.Tool.exe";
     public const string TargetLibraryPath = @"../../../../../source/SimplSharp.Library/bin/Release/net472/SimplSharp.Library.dll";
+    public const string TargetLibraryProject = @"../../../../../source/SimplSharp.Library/SimplSharp.Library.csproj";
     public const string TargetArchivePath = @"../../../../../source/SimplSharp.Library/bin/Release/net472/SimplSharp.Library.clz";
     public const string ManifestPath = @"../../../../../source/SimplSharp.Library/bin/Release/net472/ProgramInfo.config";
 #endif
@@ -34,6 +40,18 @@ public class ClzContainerFixture : IAsyncLifetime
         {
             throw new FileNotFoundException(TargetLibraryPath);
         }
+        
+        if (!File.Exists(TargetLibraryProject))
+        {
+            throw new FileNotFoundException(TargetLibraryProject);
+        }
+
+        var xdoc = XDocument.Load(TargetLibraryProject);
+
+        ReferencedSdkVersion = xdoc.Descendants("PackageReference")
+            .Where(x => (string)x.Attribute("Include") == "Crestron.SimplSharp.SDK.Library")
+            .Select(x => (string)x.Attribute("Version"))
+            .FirstOrDefault();
 
         return Task.CompletedTask;
     }
