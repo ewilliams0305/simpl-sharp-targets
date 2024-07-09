@@ -3,21 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <IsPackable>true</IsPackable>    
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="build\SimplSharpLibrary.targets" />
+    <Content Include="build\SimplSharpLibrary.targets" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="build\SimplSharpLibrary.targets">
-      <Pack>True</Pack>
-      <PackagePath>\build</PackagePath>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
 </Project>

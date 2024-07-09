@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿#pragma warning disable CA1822
+
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace SimplSharp.Tool.Tests.Setup;
@@ -49,9 +51,9 @@ public class ClzContainerFixture : IAsyncLifetime
         var xdoc = XDocument.Load(TargetLibraryProject);
 
         ReferencedSdkVersion = xdoc.Descendants("PackageReference")
-            .Where(x => (string)x.Attribute("Include") == "Crestron.SimplSharp.SDK.Library")
-            .Select(x => (string)x.Attribute("Version"))
-            .FirstOrDefault();
+            .Where(x => (string)x.Attribute("Include")! == "Crestron.SimplSharp.SDK.Library")
+            .Select(x => (string)x.Attribute("Version")!)
+            .FirstOrDefault()!;
 
         return Task.CompletedTask;
     }
@@ -63,6 +65,7 @@ public class ClzContainerFixture : IAsyncLifetime
             File.Delete(TargetArchivePath);
         }
     }
+
     public void DeleteExistingManifest()
     {
         if (File.Exists(ManifestPath))
