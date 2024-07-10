@@ -1,6 +1,8 @@
 name: 🚀 PUBLISH RELEASE
 
 on:
+  workflow_dispatch:
+
   pull_request:
     types: [closed]
     branches: [main]
@@ -69,7 +71,7 @@ jobs:
     
     - name: Push package to GitHub packages 
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change  
-      run: dotnet nuget push nugetPackage/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push nugetPackage/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     
     - name: Create Release
       if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
