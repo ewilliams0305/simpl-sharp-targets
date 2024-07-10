@@ -4,8 +4,16 @@ on:
   workflow_dispatch:
 
   pull_request:
-    types: [closed]
-    branches: [main]
+    types:
+      - closed
+    branches: 
+      - 'development'
+      - 'dev/**'
+      - 'fix/**'
+      - 'bug/**'
+      - 'hotfix/**'
+      - 'feat/**'
+      - 'feature/**'
           
 jobs:
   build:
@@ -56,7 +64,7 @@ jobs:
         path: bin/nugetPackages
         
   release:
-    if: needs.build.outputs.CommitsSinceVersionSource > 0  && github.ref == 'refs/heads/main'
+    if: needs.build.outputs.CommitsSinceVersionSource > 0
     runs-on: ubuntu-latest    
     needs: build
     
@@ -75,6 +83,7 @@ jobs:
         body: Released via github actions workflow, see repository README.md
         generateReleaseNotes: true
         artifacts: "bin/nugetPackages/*.nupkg"  
+        prerelease: true
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push packages to Nuget
@@ -83,11 +92,4 @@ jobs:
           echo $file
           dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
         done
-
-    - name: Configure NuGet source
-      run: |
-        dotnet nuget add source https://nuget.pkg.github.com/ewilliams0305/index.json --name github --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.REPO_ACCESS_TOKEN }} --store-password-in-clear-text
-
-    - name: Push package to GitHub packages 
-      run: dotnet nuget push "bin/nugetPackages/*.nupkg" --api-key ${{ secrets.REPO_ACCESS_TOKEN }} --source "github"
     
