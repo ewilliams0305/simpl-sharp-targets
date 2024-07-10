@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CA1822
 
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
 namespace SimplSharp.Tool.Tests.Setup;
@@ -16,13 +17,13 @@ public class ClzContainerFixture : IAsyncLifetime
     public string ReferencedSdkVersion { get; set; } = string.Empty;
 
 #if DEBUG
-    public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Debug", "net8.0", "SimplSharp.Tool.exe");
+    public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Debug", "net8.0", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "SimplSharp.Tool" : "SimplSharp.Tool.exe");
     public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(),  "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.dll");
     public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
     public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.clz");
     public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Debug", "net472", "ProgramInfo.config");
 #else
-    public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Release", "net8.0", "SimplSharp.Tool.exe");
+    public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Release", "net8.0", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "SimplSharp.Tool" : "SimplSharp.Tool.exe");
     public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.dll");
     public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
     public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.clz");
