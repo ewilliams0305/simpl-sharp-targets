@@ -19,6 +19,14 @@ mono_crash.*
 # Crestron
 SPlsWork/
 *.ush
+example/Wrapper.lpz
+example/Wrapper.lpz.hash
+example/Wrapper.sig
+example/Wrapper.sm2
+example/Wrapper.smft
+example/Wrapper_archive.zip
+example/Wrapper_compiled.zip
+
 
 # Build results
 
