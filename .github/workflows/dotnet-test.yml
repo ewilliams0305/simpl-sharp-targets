@@ -29,5 +29,14 @@ jobs:
     - name: Build Solution
       run: dotnet build $SOLUTION --no-restore
 
+    - name: Change Directory
+      run: cd ./home/runner/work/simpl-sharp-targets/simpl-sharp-targets/source/SimplSharp.Tool/bin/Debug/net8.0/
+      
+    - name: View Location
+      run: ls -R
+
+    - name: Chnage Directory
+      run: cd ./home/runner/work/simpl-sharp-targets/simpl-sharp-targets/source/SimplSharp.Tool/bin/Debug/net8.0/
+          
     - name: Test Solution
       run: dotnet test $SOLUTION --no-restore --verbosity normal
