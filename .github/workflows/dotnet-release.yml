@@ -73,6 +73,7 @@ jobs:
       with:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
+        generateReleaseNotes: true
         artifacts: "./nugetPackage/*"
         token: ${{ secrets.REPO_ACCESS_TOKEN }} 
 
