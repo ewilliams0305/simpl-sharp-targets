@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <Content Include="build\SimplSharpLibrary.targets" />
+    <Content Include="Directory.Build.targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="target.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
