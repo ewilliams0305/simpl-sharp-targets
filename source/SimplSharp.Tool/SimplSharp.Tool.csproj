@@ -13,7 +13,20 @@
     <PackageTags>Crestron;SimplSharp;</PackageTags>
     <PackAsTool>True</PackAsTool>
     <ToolCommandName>simplsharp</ToolCommandName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>crestron-logo.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\crestron-logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Cocona" Version="2.2.0" />
