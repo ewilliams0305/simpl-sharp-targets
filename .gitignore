@@ -26,7 +26,7 @@ example/Wrapper.sm2
 example/Wrapper.smft
 example/Wrapper_archive.zip
 example/Wrapper_compiled.zip
-
+example/Wrapper.smw.ASV
 
 # Build results
 
@@ -409,4 +409,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-example/Wrapper.smw.ASV
