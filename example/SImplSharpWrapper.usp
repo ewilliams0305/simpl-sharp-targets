@@ -1,0 +1,29 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name: NA
+System Name: NA
+System Number: NA
+Programmer: Eric Wiliams
+Comments: A simple test wrapper to ensure the SIMPL+ code will compile
+*/
+
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+
+#INCLUDEPATH "..\example\SimplSharp.Targets.Clz\bin\Debug\net472"
+#USER_SIMPLSHARP_LIBRARY "SimplSharp.Targets.Clz"
+         
+
+DIGITAL_INPUT CallMethod;
+
+TestClass test;
+
+Function Main()
+{
+    test.SimplMethodTest();
+}
+

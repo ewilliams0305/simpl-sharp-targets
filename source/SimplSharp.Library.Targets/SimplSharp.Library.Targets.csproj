@@ -11,11 +11,12 @@
     <RepositoryUrl>https://github.com/ewilliams0305/simpl-sharp-targets</RepositoryUrl>
     <PackageTags>Crestron;SimplSharp</PackageTags>
     <PackageIcon>target.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>    
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.0.19</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="build\SimplSharpLibrary.targets" />
     <Content Include="target.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -23,9 +24,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="build\SimplSharp.Library.Targets.targets">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\build</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <Target Name="CopyPackageToLocalSource" AfterTargets="Pack">
+    <ItemGroup>
+      <GeneratedNuGetPackage Include="$(OutputPath)*.nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(GeneratedNuGetPackage)" DestinationFolder="$(SolutionDir)..\packages" />
+  </Target>
 </Project>
