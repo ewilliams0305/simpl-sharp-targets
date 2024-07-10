@@ -82,7 +82,16 @@ When included as a project reference the SimplSharp.Targets build pipeline will 
 # Usage
 ![Static Badge](https://img.shields.io/badge/USAGE-yellow)
 
-*comming soon*
+### Library Project Setup
+Copy the `Directory.Build.targets` file from the repositories `./targets` folder to your projects directory.  This file will effectivly cancel the build-in SIMPL Sharp Build targets.
+Add a refernece the `SimplSharp.Library.Targets` nuget package from nuget.org.
+*Note the example/SimplSharp.Targets.Clz has been provided as a working functional example*
+
+TODO: Deliver the Directory.Build.targets file via the nuget package and remove the need to copy the files.
+
+### Compile Project
+Once configured a pre-build step will install the `SimplSharp.Tool`.  Once installed the projects build output will be directed through the tools command line and a CLZ will be generated using the tool.
+*Note the version of the tool used will always match the version of the SimplSharp.Library.Targets nuget package used*
 
 # Examples
 ![Static Badge](https://img.shields.io/badge/EXAMPLES-red)
