@@ -71,7 +71,7 @@ jobs:
     
     - name: Push package to GitHub packages 
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
-      run: dotnet nuget push nugetPackage/*.nupkg 
+      run: dotnet nuget push /nugetPackage/*.nupkg --source private_nuget
     
     - name: Create Release
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
