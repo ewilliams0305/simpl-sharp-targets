@@ -83,11 +83,4 @@ jobs:
           echo $file
           dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
         done
-
-    - name: Configure NuGet source
-      run: |
-        dotnet nuget add source https://nuget.pkg.github.com/ewilliams0305/index.json --name github --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.REPO_ACCESS_TOKEN }} --store-password-in-clear-text
-
-    - name: Push package to GitHub packages 
-      run: dotnet nuget push "bin/nugetPackages/*.nupkg" --api-key ${{ secrets.REPO_ACCESS_TOKEN }} --source "github"
     
