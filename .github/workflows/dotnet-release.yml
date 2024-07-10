@@ -58,7 +58,7 @@ jobs:
   release:
     runs-on: ubuntu-latest    
     needs: build
-    if: github.ref == 'refs/heads/main' # only run job if on the development branch   
+    if: github.ref == 'refs/heads/main'  
     
     steps:  
     - name: Download nuget package artifact
@@ -66,15 +66,15 @@ jobs:
       with:
         name: nugetPackage
 
-    - name: Prep packages
-      run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name private_nuget --source https://api.nuget.org/v3/index.json
+    # - name: Prep packages
+    #   run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name private_nuget --source https://api.nuget.org/v3/index.json
     
     - name: Push package to GitHub packages 
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
       run: dotnet nuget push nugetPackage/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     
     - name: Create Release
-      if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }} 
