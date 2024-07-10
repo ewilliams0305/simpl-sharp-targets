@@ -22,12 +22,12 @@ jobs:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
         
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
+      uses: gittools/actions/gitversion/setup@v1.2.0
       with:
         versionSpec: 5.x
 
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.9.7
+      uses: gittools/actions/gitversion/execute@v1.2.0
       id: gitversion 
 
     - name: Display GitVersion outputs
@@ -50,7 +50,7 @@ jobs:
       run: dotnet pack source/**.sln -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release -o bin/Release
 
     - name: Upload NuGet package to GitHub
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nugetPackage
         path: bin/Release/ 
@@ -62,7 +62,7 @@ jobs:
     
     steps:  
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v4
       with:
         name: nugetPackage
 
@@ -81,6 +81,7 @@ jobs:
       with:
         tag_name: ${{ needs.build.outputs.Version }}
         release_name: Release ${{ needs.build.outputs.Version }}
+
     - name: Create Release
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
       uses: ncipollo/release-action@v1
