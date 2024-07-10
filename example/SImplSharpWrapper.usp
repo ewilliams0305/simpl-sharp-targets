@@ -17,9 +17,10 @@ Comments: A simple test wrapper to ensure the SIMPL+ code will compile
 #INCLUDEPATH "..\example\SimplSharp.Targets.Clz\bin\Debug\net472"
 #USER_SIMPLSHARP_LIBRARY "SimplSharp.Targets.Clz"
          
-TestClass test;
 
 DIGITAL_INPUT CallMethod;
+
+TestClass test;
 
 Function Main()
 {
