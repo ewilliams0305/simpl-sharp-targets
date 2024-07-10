@@ -22,12 +22,12 @@ jobs:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
         
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
+      uses: gittools/actions/gitversion/setup@v1.2.0
       with:
         versionSpec: 5.x
 
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.9.7
+      uses: gittools/actions/gitversion/execute@v1.2.0
       id: gitversion 
 
     - name: Display GitVersion outputs
@@ -50,7 +50,7 @@ jobs:
       run: dotnet pack source/**.sln -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release -o bin/Release
 
     - name: Upload NuGet package to GitHub
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nugetPackage
         path: bin/Release/ 
@@ -62,15 +62,15 @@ jobs:
     
     steps:  
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v4
       with:
         name: nugetPackage
 
     - name: Prep packages
-      run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }}  --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name github
+      run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name private_nuget --source https://api.nuget.org/v3/index.json
     
     - name: Push package to GitHub packages 
-      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change  
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 
       run: dotnet nuget push nugetPackage/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     
     - name: Create Release
@@ -81,6 +81,7 @@ jobs:
       with:
         tag_name: ${{ needs.build.outputs.Version }}
         release_name: Release ${{ needs.build.outputs.Version }}
+
     - name: Create Release
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
       uses: ncipollo/release-action@v1
