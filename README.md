@@ -1,4 +1,4 @@
-﻿<img src="./crestron-logo.png" alt="drawing" width="100"/>
+﻿<img src="./target.png" alt="drawing" width="100"/>
 
 ![Static Badge](https://img.shields.io/badge/SIMPL-green)
 ![Static Badge](https://img.shields.io/badge/SHARP-blue)

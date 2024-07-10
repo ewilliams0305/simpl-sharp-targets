@@ -10,19 +10,19 @@
     <PackageProjectUrl>https://github.com/ewilliams0305/simpl-sharp-targets</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ewilliams0305/simpl-sharp-targets</RepositoryUrl>
     <PackageTags>Crestron;SimplSharp</PackageTags>
-    <PackageIcon>crestron-logo.png</PackageIcon>
+    <PackageIcon>target.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>    
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="build\SimplSharpLibrary.targets" />
+    <Content Include="target.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\crestron-logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

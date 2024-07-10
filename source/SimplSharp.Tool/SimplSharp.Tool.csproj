@@ -14,14 +14,17 @@
     <PackAsTool>True</PackAsTool>
     <ToolCommandName>simplsharp</ToolCommandName>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>crestron-logo.png</PackageIcon>
+    <PackageIcon>target.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\crestron-logo.png">
+    <Content Include="target.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
