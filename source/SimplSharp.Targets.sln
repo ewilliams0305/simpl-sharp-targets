@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Library.Targets", "SimplSharp.Targets\SimplSharp.Library.Targets.csproj", "{2BBF248F-9B8B-4DCC-B9A0-10FFD54C0FD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Library.Targets", "SimplSharp.Library.Targets\SimplSharp.Library.Targets.csproj", "{2BBF248F-9B8B-4DCC-B9A0-10FFD54C0FD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Tool", "SimplSharp.Tool\SimplSharp.Tool.csproj", "{E77030BF-A3FD-4763-A407-60C652531E50}"
 EndProject

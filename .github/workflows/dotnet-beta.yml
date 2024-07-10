@@ -42,7 +42,14 @@ jobs:
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
-    
+  
+    - name: Update Tool Version In Targets
+      run: |
+        xmlstarlet ed --inplace \
+          -u "//_:PropertyGroup/_:ToolVersion" \
+          -v '${{ steps.gitversion.outputs.SemVer }}' \
+          source/SimplSharp.Library.Targets/build/SimplSharp.Library.Targets.targets
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
