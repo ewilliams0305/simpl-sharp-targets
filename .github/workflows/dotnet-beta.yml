@@ -42,7 +42,10 @@ jobs:
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
-  
+    
+    - name: Install xmlstarlet
+      run: sudo apt-get install -y xmlstarlet
+
     - name: Update Tool Version In Targets
       run: |
         xmlstarlet ed --inplace \
