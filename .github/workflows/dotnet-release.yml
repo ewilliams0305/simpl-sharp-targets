@@ -53,7 +53,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: nugetPackage
-        path: bin/Release/ 
+        path: bin/nugetPackages
         
   release:
     runs-on: ubuntu-latest    
@@ -65,22 +65,23 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: nugetPackage
-        path: ./nugetPackages
+        path: bin/nugetPackages
     
     - name: Create Release
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
-      uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@v1.14.0
       with:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
+        body: Released via github actions workflow, see repository README.md
         generateReleaseNotes: true
-        artifacts: "./nugetPackage/*"
+        artifacts: "bin/nugetPackages/*.nupkg"  
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push packages to Nuget
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
       run: |
-        for file in $(find ./nugetPackages -type f -name "*.nupkg"); do
+        for file in $(find bin/nugetPackages -type f -name "*.nupkg"); do
           echo $file
           dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
         done
