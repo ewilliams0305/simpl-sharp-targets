@@ -409,3 +409,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+example/Wrapper.smw.ASV

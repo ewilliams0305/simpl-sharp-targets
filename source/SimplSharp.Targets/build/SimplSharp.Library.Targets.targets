@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
 
-  <Target Name="SimplSharpClean"/>
-  <Target Name="SimplSharpPostProcess47"/>
-  <Target Name="SimplSharpPostProcess"/>
-
   <PropertyGroup>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <CopyLocalLockFileAssemblies>False</CopyLocalLockFileAssemblies>
@@ -14,6 +10,11 @@
 
   <PropertyGroup>
     <ToolCommand>dotnet simplsharp clz</ToolCommand>
+    <!-- 
+        Tool version will be replaced during the CI actions.  
+        This will ensure this package always uses the correct version of the tooling it targets.
+        This will happen from github actions prior to the dotnet build command.
+    -->
     <ToolVersion>0.1.3</ToolVersion>
     <ArchiveExtension>.clz</ArchiveExtension>
   </PropertyGroup>
@@ -39,7 +40,7 @@
   </Target>
 
   <!-- Execute Actions -->
-  
+
   <Target Name="SimplSharpBuildArchive" BeforeTargets="AfterBuild">
     <Message Importance="high" Text="----> Creating SIMPL Sharp Archive $(OutputPath)\$(AssemblyName).dll ----> $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'"/>
     <Exec Command="$(ToolCommand) -p $(OutputPath)\$(AssemblyName).dll -d $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'" />
