@@ -16,7 +16,12 @@
 # Mono auto generated files
 mono_crash.*
 
+# Crestron
+SPlsWork/
+*.ush
+
 # Build results
+
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/

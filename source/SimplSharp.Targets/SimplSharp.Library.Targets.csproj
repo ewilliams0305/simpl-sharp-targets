@@ -12,14 +12,11 @@
     <PackageTags>Crestron;SimplSharp</PackageTags>
     <PackageIcon>target.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>    
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.0.15</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="build\SimplSharpLibrary.targets" />
-    <Content Include="Directory.Build.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="target.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -36,4 +33,20 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="build\SimplSharp.Library.Targets.targets">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\build</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <Target Name="CopyPackageToLocalSource" AfterTargets="Pack">
+    <ItemGroup>
+      <GeneratedNuGetPackage Include="$(OutputPath)*.nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(GeneratedNuGetPackage)" DestinationFolder="$(SolutionDir)..\packages" />
+  </Target>
 </Project>

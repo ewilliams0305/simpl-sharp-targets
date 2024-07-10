@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <Target Name="SimplSharpClean"/>
+  <Target Name="SimplSharpPostProcess47"/>
+  <Target Name="SimplSharpPostProcess"/>
+
   <PropertyGroup>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <CopyLocalLockFileAssemblies>False</CopyLocalLockFileAssemblies>
@@ -8,9 +13,9 @@
   <!-- Data Variables -->
 
   <PropertyGroup>
-    <TooCommand>dotnet simplsharp clz</TooCommand>
+    <ToolCommand>dotnet simplsharp clz</ToolCommand>
+    <ToolVersion>0.1.3</ToolVersion>
     <ArchiveExtension>.clz</ArchiveExtension>
-    <ToolVersion>__replaced_by_git_worflow__</ToolVersion>
   </PropertyGroup>
 
   <!-- Output Provided -->
