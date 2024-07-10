@@ -32,6 +32,13 @@ public class ClzContainerFixture : IAsyncLifetime
     /// <inheritdoc />
     public Task InitializeAsync()
     {
+        var current = Directory.GetCurrentDirectory();
+        Directory.SetCurrentDirectory("../../../../../");
+
+        var newDir = Directory.GetCurrentDirectory();
+
+        Console.WriteLine($"-------------> current: {current}");
+        Console.WriteLine($"-------------> updated: {newDir}");
 
         if (!File.Exists(ExePath))
         {
