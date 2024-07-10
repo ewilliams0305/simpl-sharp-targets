@@ -68,6 +68,13 @@ jobs:
 
     # - name: Prep packages
     #   run: dotnet nuget add source --username ${{ secrets.NUGET_USERNAME }} --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name private_nuget https://api.nuget.org/v3/index.json
+    - name: Push package to GitHub packages 
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 
+      run: |
+          foreach($file in (Get-ChildItem ./nugetPackage -Recurse -Include *.nupkg)) {
+              echo $file
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          }
     
     - name: Push package to GitHub packages 
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
