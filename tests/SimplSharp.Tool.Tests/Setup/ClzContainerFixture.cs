@@ -16,30 +16,26 @@ public class ClzContainerFixture : IAsyncLifetime
     public string ReferencedSdkVersion { get; set; } = string.Empty;
 
 #if DEBUG
-    public static readonly string ExePath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Tool", "bin", "Debug", "net8.0", "SimplSharp.Tool.exe");
-    public static readonly string TargetLibraryPath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.dll");
-    public static readonly string TargetLibraryProject = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
-    public static readonly string TargetArchivePath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.clz");
-    public static readonly string ManifestPath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "bin", "Debug", "net472", "ProgramInfo.config");
+    public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Debug", "net8.0", "SimplSharp.Tool.exe");
+    public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(),  "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.dll");
+    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
+    public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.clz");
+    public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Debug", "net472", "ProgramInfo.config");
 #else
-    public static readonly string ExePath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Tool", "bin", "Release", "net8.0", "SimplSharp.Tool.exe");
-    public static readonly string TargetLibraryPath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.dll");
-    public static readonly string TargetLibraryProject = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
-    public static readonly string TargetArchivePath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.clz");
-    public static readonly string ManifestPath = Path.Combine("..", "..", "..", "..", "..", "source", "SimplSharp.Library", "bin", "Release", "net472", "ProgramInfo.config");
+    public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Release", "net8.0", "SimplSharp.Tool.exe");
+    public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.dll");
+    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
+    public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.clz");
+    public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "ProgramInfo.config");
 #endif
 
     /// <inheritdoc />
     public Task InitializeAsync()
     {
-        var current = Directory.GetCurrentDirectory();
         Directory.SetCurrentDirectory("../../../../../");
-
         var newDir = Directory.GetCurrentDirectory();
-
-        Console.WriteLine($"-------------> current: {current}");
-        Console.WriteLine($"-------------> updated: {newDir}");
-
+        Console.WriteLine($"-------------> Changing working directory: {newDir}");
+        
         if (!File.Exists(ExePath))
         {
             throw new FileNotFoundException(ExePath);
