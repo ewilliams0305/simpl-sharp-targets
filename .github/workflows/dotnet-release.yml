@@ -75,7 +75,7 @@ jobs:
         name: Release ${{ needs.build.outputs.Version }}
         generateReleaseNotes: true
         artifacts: "./nugetPackage/*"
-        token: ${{ secrets.REPO_ACCESS_TOKEN }} 
+        # token: ${{ secrets.REPO_ACCESS_TOKEN }} 
 
     - name: Push packages to Nuget
       if: needs.build.outputs.CommitsSinceVersionSource > 0 
