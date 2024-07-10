@@ -1,10 +1,13 @@
-<img src="./crestron-logo.png" alt="drawing" width="100"/>
+﻿<img src="./crestron-logo.png" alt="drawing" width="100"/>
+
+![Static Badge](https://img.shields.io/badge/SIMPL-green)
+![Static Badge](https://img.shields.io/badge/SHARP-blue)
+![Static Badge](https://img.shields.io/badge/TARGETS-red)
 
 # SIMPL Sharp Targets
-![Static Badge](https://img.shields.io/badge/CRESTRON-green)
-![Static Badge](https://img.shields.io/badge/SIMPL__SHARP-blue)
-![Static Badge](https://img.shields.io/badge/MSBUILD-red)
+
 [![DOTNET TEST](https://github.com/ewilliams0305/simpl-sharp-targets/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/ewilliams0305/simpl-sharp-targets/actions/workflows/dotnet-test.yml)
+[![PUBLISH RELEASE](https://github.com/ewilliams0305/simpl-sharp-targets/actions/workflows/dotnet-release.yml/badge.svg)](https://github.com/ewilliams0305/simpl-sharp-targets/actions/workflows/dotnet-release.yml)
 
 The SimplSharp Targets repository contains build tools used to generate CPZs CLZs and CPLZs.  Packaged as a source controlled dotnet tool, the simpl sharp targets tool offers an alternative to Crestron's MSBUILD targets.
 
