@@ -18,16 +18,16 @@ public class ClzContainerFixture : IAsyncLifetime
 
 #if DEBUG
     public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Debug", "net8.0", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "SimplSharp.Tool" : "SimplSharp.Tool.exe");
-    public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(),  "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.dll");
-    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
-    public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.clz");
-    public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Debug", "net472", "ProgramInfo.config");
+    public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(),  "example", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.dll");
+    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "SimplSharp.Library.csproj");
+    public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "bin", "Debug", "net472", "SimplSharp.Library.clz");
+    public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "bin", "Debug", "net472", "ProgramInfo.config");
 #else
     public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", "Release", "net8.0", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "SimplSharp.Tool" : "SimplSharp.Tool.exe");
-    public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.dll");
-    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "SimplSharp.Library.csproj");
-    public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.clz");
-    public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Library", "bin", "Release", "net472", "ProgramInfo.config");
+    public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.dll");
+    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "SimplSharp.Library.csproj");
+    public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "bin", "Release", "net472", "SimplSharp.Library.clz");
+    public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Library", "bin", "Release", "net472", "ProgramInfo.config");
 #endif
 
     /// <inheritdoc />

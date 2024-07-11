@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{B65F95
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assests", "assests", "{EAC34DE8-2F72-4DF9-904F-EABF4532A9D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Library", "SimplSharp.Library\SimplSharp.Library.csproj", "{4C8EE47C-5568-4D6B-9040-AAB7960FFF41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Library", "..\example\SimplSharp.Library\SimplSharp.Library.csproj", "{4C8EE47C-5568-4D6B-9040-AAB7960FFF41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Program", "SimplSharp.Program\SimplSharp.Program.csproj", "{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Program", "..\example\SimplSharp.Program\SimplSharp.Program.csproj", "{A51E97FB-7070-4CEA-97EF-A7AA3E33AAEE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CAC12CC3-5310-4450-9406-4731559BEC22}"
 EndProject
