@@ -46,7 +46,7 @@ internal sealed class ClzCommand
         if (!info.Exists)
         {
             _logger.LogError("Target assembly not found {path}", path);
-            Environment.Exit(-1);
+            Environment.Exit(1);
             return;
         }
 
@@ -57,7 +57,7 @@ internal sealed class ClzCommand
             if (assembly is null)
             {
                 _logger.LogError("Failed to load the assembly at {path}", path);
-                Environment.Exit(-1);
+                Environment.Exit(2);
                 return;
             }
 
@@ -76,7 +76,7 @@ internal sealed class ClzCommand
                     out var manifest))
             {
                 _logger.LogError("Failed creating the manifest from the assembly {assembly}", assembly);
-                Environment.Exit(-1);
+                Environment.Exit(2);
                 return;
             }
 
@@ -85,7 +85,7 @@ internal sealed class ClzCommand
             if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath))
             {
                 _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
-                Environment.Exit(-1);
+                Environment.Exit(2);
             }
 
             _logger.LogInformation("Successfully created {extension} from {assembly} located at {targetPath}", Global.LibraryExtension, assembly, targetPath);
@@ -96,7 +96,7 @@ internal sealed class ClzCommand
         catch (Exception e)
         {
             _logger.LogError(e, "Target project not found {path}", path);
-            Environment.Exit(-1);
+            Environment.Exit(100);
         }
     }
 }
