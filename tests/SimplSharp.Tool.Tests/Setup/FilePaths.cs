@@ -29,11 +29,6 @@ internal class FilePaths
         {
             throw new FileNotFoundException(UserPlusWrapperPath);
         }
-        
-        if (!File.Exists(WrapperLibraryPath))
-        {
-            throw new FileNotFoundException(WrapperLibraryPath);
-        }
     }
 
 
