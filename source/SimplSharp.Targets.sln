@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CAC12CC3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Tool.Tests", "..\tests\SimplSharp.Tool.Tests\SimplSharp.Tool.Tests.csproj", "{BF41CEFE-054E-4B11-9170-A09079B2E763}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{D746568C-4A37-42FD-A8B1-5CF267E72F2E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D746568C-4A37-42FD-A8B1-5CF267E72F2E}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\README.md = ..\README.md
