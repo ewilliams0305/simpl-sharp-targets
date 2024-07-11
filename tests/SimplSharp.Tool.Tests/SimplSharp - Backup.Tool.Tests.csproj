@@ -26,8 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\example\SimplSharp.Library\SimplSharp.Library.csproj" />
-    <ProjectReference Include="..\..\example\SimplSharp.Program\SimplSharp.Program.csproj" />
+    <ProjectReference Include="..\..\source\SimplSharp.Program\SimplSharp.Program.csproj" />
     <ProjectReference Include="..\..\source\SimplSharp.Tool\SimplSharp.Tool.csproj" />
   </ItemGroup>
 

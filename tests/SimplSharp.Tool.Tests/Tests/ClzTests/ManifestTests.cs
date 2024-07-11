@@ -6,23 +6,16 @@ using File = System.IO.File;
 namespace SimplSharp.Tool.Tests;
 
 [Collection(nameof(ClzTestCollection))]
-public class ManifestTests
+public class ManifestTests(ClzTestFixture fixture)
 {
-    private readonly ClzContainerFixture _fixture;
-
-    public ManifestTests(ClzContainerFixture fixture)
-    {
-        _fixture = fixture;
-    }
-
     [Fact]
     public void ClzCommand_CreatesManifest_WhenTargetIsValid()
     {
-        _fixture.DeleteExistingManifest();
+        FilePaths.DeleteExistingManifest();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var exists = File.Exists(ClzContainerFixture.ManifestPath);
+        var exists = File.Exists(FilePaths.ManifestPath);
 
         exists.Should().BeTrue(because: "The assembly path provided is valid");
     }
@@ -30,11 +23,11 @@ public class ManifestTests
     [Fact]
     public void ClzCommand_CreateManifest_WithValidXmlRootElement()
     {
-        _fixture.DeleteExistingManifest();
+        FilePaths.DeleteExistingManifest();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var xdoc = XDocument.Load(ClzContainerFixture.ManifestPath);
+        var xdoc = XDocument.Load(FilePaths.ManifestPath);
         var root = xdoc.Element("ProgramInfo");
 
         root.Should().NotBeNull(because: "All manifest files should contain a program info root element");
@@ -43,11 +36,11 @@ public class ManifestTests
     [Fact]
     public void ClzCommand_Manifest_Contains_RequiredElement()
     {
-        _fixture.DeleteExistingManifest();
+        FilePaths.DeleteExistingManifest();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var xdoc = XDocument.Load(ClzContainerFixture.ManifestPath);
+        var xdoc = XDocument.Load(FilePaths.ManifestPath);
         var root = xdoc.Element("ProgramInfo");
         var required = root!.Element("RequiredInfo");
 
@@ -58,11 +51,11 @@ public class ManifestTests
     [Fact]
     public void ClzCommand_Manifest_Contains_OptionalElement()
     {
-        _fixture.DeleteExistingManifest();
+        FilePaths.DeleteExistingManifest();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var xdoc = XDocument.Load(ClzContainerFixture.ManifestPath);
+        var xdoc = XDocument.Load(FilePaths.ManifestPath);
         var root = xdoc.Element("ProgramInfo");
         var options = root!.Element("OptionalInfo");
 
@@ -72,11 +65,11 @@ public class ManifestTests
     [Fact]
     public void ClzCommand_Manifest_Contains_PluginElement()
     {
-        _fixture.DeleteExistingManifest();
+        FilePaths.DeleteExistingManifest();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var xdoc = XDocument.Load(ClzContainerFixture.ManifestPath);
+        var xdoc = XDocument.Load(FilePaths.ManifestPath);
         var root = xdoc.Element("ProgramInfo");
         var plugin = root!.Element("Plugin");
 
@@ -86,16 +79,16 @@ public class ManifestTests
     [Fact]
     public void ClzCommand_Manifest_Contains_PluginVersion()
     {
-        _fixture.DeleteExistingManifest();
+        FilePaths.DeleteExistingManifest();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var xdoc = XDocument.Load(ClzContainerFixture.ManifestPath);
+        var xdoc = XDocument.Load(FilePaths.ManifestPath);
         var root = xdoc.Element("ProgramInfo");
         var plugin = root!.Element("Plugin");
         var version = plugin!.Element("Include4.dat")!.Value;
 
-        version.Should().Be(_fixture.ReferencedSdkVersion);
+        version.Should().Be(fixture.ReferencedSdkVersion);
     }
 
 }
