@@ -4,19 +4,13 @@ using SimplSharp.Tool.Tests.Setup;
 namespace SimplSharp.Tool.Tests;
 
 [Collection(nameof(ClzTestCollection))]
-public class ArchiveTests
+public class ArchiveTests(ClzTestFixture fixture)
 {
-    private readonly ClzContainerFixture _fixture;
-
-    public ArchiveTests(ClzContainerFixture fixture)
-    {
-        _fixture = fixture;
-    }
 
     [Fact]
     public void ClzCommand_ExitsClean_WhenArchive_IsCreated()
     {
-        var (output, exitCode) = _fixture.CreateClz();
+        var (_, exitCode) = fixture.CreateClz();
 
         exitCode.Should().Be(0, because: "The command should complete with a valid file");
     }
@@ -24,7 +18,7 @@ public class ArchiveTests
     [Fact]
     public void ClzCommand_ExitsBad_WhenArchive_IsNotCreated()
     {
-        var (output, exitCode) = _fixture.CreateClz("invalid_file.dll");
+        var (_, exitCode) = fixture.CreateClz("invalid_file.dll");
 
         exitCode.Should().NotBe(0, because: "The command should not create an clz from nothing");
     }
@@ -32,11 +26,11 @@ public class ArchiveTests
     [Fact]
     public void ClzCommand_CreatesArchiveFile_WhenAssemblyIsValidTarget()
     {
-        _fixture.DeleteExistingClz();
+        FilePaths.DeleteExistingClz();
 
-        var (output, exitCode) = _fixture.CreateClz();
+        fixture.CreateClz();
 
-        var exists = File.Exists(ClzContainerFixture.TargetArchivePath);
+        var exists = File.Exists(FilePaths.TargetArchivePath);
 
         exists.Should().BeTrue(because: "The assembly path provided is valid");
     }
@@ -44,11 +38,11 @@ public class ArchiveTests
     [Fact]
     public void ClzCommand_DoesNotCreatesArchiveFile_WhenAssemblyIsNotValidTarget()
     {
-        _fixture.DeleteExistingClz();
+        FilePaths.DeleteExistingClz();
 
-        var (output, exitCode) = _fixture.CreateClz("invalid_file.dll");
+        fixture.CreateClz("invalid_file.dll");
 
-        var exists = File.Exists(ClzContainerFixture.TargetArchivePath);
+        var exists = File.Exists(FilePaths.TargetArchivePath);
 
         exists.Should().BeFalse(because: "The assembly path provided is not a valid DLL");
     }
