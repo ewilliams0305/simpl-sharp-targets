@@ -20,7 +20,7 @@ public class ArchiveTests(ClzTestFixture fixture)
     {
         var (_, exitCode) = fixture.CreateClz("invalid_file.dll");
 
-        exitCode.Should().NotBe(0, because: "The command should not create an clz from nothing");
+        exitCode.Should().Be(1, because: "The command should not create an clz from nothing");
     }
     
     [Fact]

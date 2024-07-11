@@ -46,7 +46,7 @@ internal sealed class ClzCommand
         if (!info.Exists)
         {
             _logger.LogError("Target assembly not found {path}", path);
-            Environment.Exit(0);
+            Environment.Exit(1);
             return;
         }
 
