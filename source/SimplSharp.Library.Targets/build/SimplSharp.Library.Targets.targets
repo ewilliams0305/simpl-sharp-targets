@@ -19,6 +19,15 @@
     <ArchiveExtension>.clz</ArchiveExtension>
   </PropertyGroup>
 
+  <!-- Copy Directory.Build.targets  -->
+  <Target Name="CopyDirectoryBuildTargets" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <NuGetPackagePath Include="$(NuGetPackageRoot)simplsharp.library.targets\$(ToolVersion)\content\Directory.Build.targets" />
+    </ItemGroup>
+    <Message Importance="high" Text="Copying Directory.Build.targets to project directory $(NuGetPackagePath)" />
+    <Copy SourceFiles="@(NuGetPackagePath)" DestinationFolder="$(MSBuildProjectDirectory)" />
+  </Target>
+
   <!-- Output Provided -->
 
   <PropertyGroup>
