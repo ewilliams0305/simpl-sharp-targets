@@ -13,12 +13,11 @@
     <PackageIcon>target.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.0.26</Version>
+    <Version>0.0.33</Version>
     <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="content\Directory.Build.targets" />
     <Content Include="target.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -26,15 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="content/**/*.*" copyToOutput="true">
+    <Content Include="content/*.*" copyToOutput="true">
       <Pack>true</Pack>
-      <PackagePath>content\any\any;content</PackagePath>
+      <PackagePath>contentFiles\any\any;content</PackagePath>
       <IncludeInPackage>true</IncludeInPackage>
-      <CopyToOutput>true</CopyToOutput>
-      <BuildAction>Content</BuildAction>
-      <copyToOutput>true</copyToOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
   </ItemGroup>
 

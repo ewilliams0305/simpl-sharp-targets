@@ -7,11 +7,12 @@
 
   <ItemGroup>
     <Content Remove="C:\Users\ewilliams\.nuget\packages\simplsharp.library.targets\0.0.20\contentFiles\any\net472\Directory.Build.targets" />
+    <Content Remove="C:\Users\ewilliams\.nuget\packages\simplsharp.library.targets\0.0.33\contentFiles\any\any\Directory.Build.targets" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Crestron.SimplSharp.SDK.Library" Version="2.20.66" />
-    <PackageReference Include="SimplSharp.Library.Targets" Version="0.0.26" />
+    <PackageReference Include="SimplSharp.Library.Targets" Version="0.0.33" />
   </ItemGroup>
 
 </Project>
