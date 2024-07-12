@@ -13,14 +13,28 @@
     <PackageIcon>target.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.0.19</Version>
+    <Version>0.0.26</Version>
     <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="content\Directory.Build.targets" />
     <Content Include="target.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="content/**/*.*" copyToOutput="true">
+      <Pack>true</Pack>
+      <PackagePath>content\any\any;content</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <CopyToOutput>true</CopyToOutput>
+      <BuildAction>Content</BuildAction>
+      <copyToOutput>true</copyToOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
 
@@ -48,6 +62,6 @@
     <ItemGroup>
       <GeneratedNuGetPackage Include="$(OutputPath)*.nupkg" />
     </ItemGroup>
-    <Copy SourceFiles="@(GeneratedNuGetPackage)" DestinationFolder="$(SolutionDir)..\packages" />
+    <Copy SourceFiles="@(GeneratedNuGetPackage)" DestinationFolder="$(SolutionDir)..\local" />
   </Target>
 </Project>
