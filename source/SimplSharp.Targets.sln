@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D746568C-4A37-42FD-A8B1-5CF267E72F2E}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		..\.github\workflows\dotnet-beta.yml = ..\.github\workflows\dotnet-beta.yml
+		..\.github\workflows\dotnet-release.yml = ..\.github\workflows\dotnet-release.yml
+		..\.github\workflows\dotnet-test.yml = ..\.github\workflows\dotnet-test.yml
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
