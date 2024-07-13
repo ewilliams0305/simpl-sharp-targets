@@ -4,19 +4,13 @@ using System.Reflection;
 
 namespace SimplSharp.Tool;
 
-internal sealed class DirectoryBuildTargetsCommand
+/// <summary>
+/// Creates or modifies a the Directory.Build.targets file in the provided directory.
+/// </summary>
+/// <param name="logger">a logger with context</param>
+/// <param name="buildTargetsService">targets service used to create build targets</param>
+internal sealed class DirectoryBuildTargetsCommand(ILogger<DirectoryBuildTargetsCommand> logger, BuildTargetsService buildTargetsService)
 {
-    private readonly ILogger<DirectoryBuildTargetsCommand> _logger;
-    private readonly BuildTargetsService _buildTargetsService;
-    private readonly ProjectService _projectService;
-
-    public DirectoryBuildTargetsCommand(ILogger<DirectoryBuildTargetsCommand> logger, BuildTargetsService buildTargetsService, ProjectService projectService)
-    {
-        _logger = logger;
-        _buildTargetsService = buildTargetsService;
-        _projectService = projectService;
-    }
-
 
     [Command("targets", Aliases = new string[] { "l" }, Description = "Creates or modifies a the Directory.Build.targets file in the provided directory.")]
     public void CreateDriver(
@@ -30,20 +24,29 @@ internal sealed class DirectoryBuildTargetsCommand
 
         if (!info.Exists)
         {
-            _logger.LogError("Target directory not found {directory}", directory);
+            logger.LogError("Target directory not found {directory}", directory);
             Environment.Exit(1);
             return;
         }
 
         try
         {
-          
+            var result = buildTargetsService.CreateOrModifyDirectoryTargets(info);  
+
+            logger.LogInformation("Completed directory build targets with result {targetResults}", result);
+
+            if (result == BuildTargetsService.BuildTargetsResult.DirectoryNotFound)
+            {
+                Environment.Exit(1);
+                return;
+            }
+
             Environment.Exit(0);
         }
 
         catch (Exception e)
         {
-            _logger.LogError(e, "Failed to create directory targets in the provided path {directory}", directory);
+            logger.LogError(e, "Failed to create directory targets in the provided path {directory}", directory);
             Environment.Exit(100);
         }
     }
