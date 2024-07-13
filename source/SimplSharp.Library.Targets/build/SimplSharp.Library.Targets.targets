@@ -10,6 +10,7 @@
 
   <PropertyGroup>
     <ToolCommand>dotnet simplsharp clz</ToolCommand>
+    <TargetsCommand>dotnet simplsharp targets</TargetsCommand>
     <!-- 
         Tool version will be replaced during the CI actions.  
         This will ensure this package always uses the correct version of the tooling it targets.
@@ -19,13 +20,19 @@
     <ArchiveExtension>.clz</ArchiveExtension>
   </PropertyGroup>
 
+  <!-- Installation -->
+
+  <Target Name="InstallTools" BeforeTargets="CreateOrModifyBuildTargets">
+    <Message Importance="high" Text="Checking for SimplSharp.Tool updates $(ToolVersion)" />
+    <Exec Command="dotnet tool install SimplSharp.Tool --version $(ToolVersion) --create-manifest-if-needed --allow-downgrade" />
+  </Target>
+
+
   <!-- Copy Directory.Build.targets  -->
-  <Target Name="CopyDirectoryBuildTargets" BeforeTargets="BeforeBuild">
-    <ItemGroup>
-      <NuGetPackagePath Include="$(NuGetPackageRoot)simplsharp.library.targets\$(ToolVersion)\content\Directory.Build.targets" />
-    </ItemGroup>
-    <Message Importance="high" Text="Copying Directory.Build.targets to project directory $(NuGetPackagePath)" />
-    <Copy SourceFiles="@(NuGetPackagePath)" DestinationFolder="$(MSBuildProjectDirectory)" />
+  <Target Name="CreateOrModifyBuildTargets" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="----> Creating Directory.Build.targets file in the $(MSBuildProjectDirectory) directory"/>
+    <Message Importance="high" Text="----> If the targets already exist the overrides will be added to the file"/>
+    <Exec Command="$(TargetsCommand) -d $(MSBuildProjectDirectory)" />
   </Target>
 
   <!-- Output Provided -->
@@ -39,13 +46,6 @@
   <Target Name="SimplSharpCleanup" AfterTargets="BeforeBuild;AfterClean">
     <Delete Files="$(OutputPath)\ProgramInfo.config" ContinueOnError="true" />
     <Delete Files="$(OutputPath)\$(TargetName)$(ArchiveExtension)" ContinueOnError="true" />
-  </Target>
-
-  <!-- Installation -->
-
-  <Target Name="InstallTools" BeforeTargets="SimplSharpBuildArchive">
-    <Message Importance="high" Text="Checking for SimplSharp.Tool updates $(ToolVersion)" />
-    <Exec Command="dotnet tool install SimplSharp.Tool --version $(ToolVersion) --create-manifest-if-needed --allow-downgrade" />
   </Target>
 
   <!-- Execute Actions -->
