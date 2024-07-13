@@ -19,25 +19,6 @@ public class ClzTestFixture : IAsyncLifetime
     /// <inheritdoc />
     public Task InitializeAsync()
     {
-        //Directory.SetCurrentDirectory("../../../../../");
-        //var newDir = Directory.GetCurrentDirectory();
-        //Console.WriteLine($"-------------> Changing working directory: {newDir}");
-
-        //if (!File.Exists(Paths.ExePath))
-        //{
-        //    throw new FileNotFoundException(Paths.ExePath);
-        //}
-
-        //if (!File.Exists(Paths.TargetLibraryPath))
-        //{
-        //    throw new FileNotFoundException(Paths.TargetLibraryPath);
-        //}
-        
-        //if (!File.Exists(Paths.TargetLibraryProject))
-        //{
-        //    throw new FileNotFoundException(Paths.TargetLibraryProject);
-        //}
-
         var xdoc = XDocument.Load(FilePaths.TargetLibraryProject);
 
         ReferencedSdkVersion = xdoc.Descendants("PackageReference")

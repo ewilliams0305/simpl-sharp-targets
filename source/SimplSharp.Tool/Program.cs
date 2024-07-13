@@ -6,6 +6,8 @@ using SimplSharp.Tool;
 var builder = CoconaApp.CreateBuilder();
 
 builder.Services
+    .AddTransient<BuildTargetsService>()
+    .AddTransient<ProjectService>()
     .AddTransient<ManifestService>()
     .AddTransient<ArchiveService>();
 

@@ -52,6 +52,8 @@ internal sealed class Global
 
 
     public const string SimplSharpCleanQuery = "//msb:Target[@Name='SimplSharpClean']";
+
     public const string SimplSharpProcessQuery = "//msb:Target[@Name='SimplSharpPostProcess']";
+
     public const string SimplSharpProcess47Query = "//msb:Target[@Name='SimplSharpPostProcess47']";
 }

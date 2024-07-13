@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace SimplSharp.Tool;
 
-internal sealed class BuildTargetsService
+public sealed class BuildTargetsService
 {
     private readonly ILogger<BuildTargetsService> _logger;
     private readonly ProjectService _projectService;
@@ -67,10 +67,11 @@ internal sealed class BuildTargetsService
         }
     }
 
-    private XmlDocument CreateBuildTargetsXmlDocument()
+    internal XmlDocument CreateBuildTargetsXmlDocument()
     {
         var xmlDocument = new XmlDocument();
-        var root = xmlDocument.CreateElement("Project", "http://schemas.microsoft.com/developer/msbuild/2003");
+        var root = xmlDocument.CreateElement("Project");
+        root.SetAttribute("xmlns", "http://schemas.microsoft.com/developer/msbuild/2003");
         root.SetAttribute("ToolsVersion", "4.0");
         root.SetAttribute("DefaultTargets", "build");
 
@@ -79,19 +80,19 @@ internal sealed class BuildTargetsService
         var simplSharpCleanElement = xmlDocument.CreateElement(Global.XmlTarget);
         simplSharpCleanElement.SetAttribute(Global.XmlName, Global.SimplSharpCleanTarget);
 
-        var simplSharpProcessElement = xmlDocument.CreateElement(Global.XmlTarget);
-        simplSharpProcessElement.SetAttribute(Global.XmlName, Global.SimplSharpCleanTarget);
-
         var simplSharpProcessFrameworkElement = xmlDocument.CreateElement(Global.XmlTarget);
-        simplSharpProcessFrameworkElement.SetAttribute(Global.XmlName, Global.SimplSharpCleanTarget);
+        simplSharpProcessFrameworkElement.SetAttribute(Global.XmlName, Global.SimplSharpProcess47Target);
+
+        var simplSharpProcessElement = xmlDocument.CreateElement(Global.XmlTarget);
+        simplSharpProcessElement.SetAttribute(Global.XmlName, Global.SimplSharpProcessTarget);
 
         root.AppendChild(simplSharpCleanElement);
         root.AppendChild(simplSharpProcessElement);
         root.AppendChild(simplSharpProcessFrameworkElement);
         return xmlDocument;
     }
-    
-    private (XmlDocument doc, bool modified) ModifyBuildTargetsXmlDocument(XmlDocument xmlDocument)
+
+    internal (XmlDocument doc, bool modified) ModifyBuildTargetsXmlDocument(XmlDocument xmlDocument)
     {
         var root = xmlDocument.DocumentElement;
 
@@ -100,52 +101,22 @@ internal sealed class BuildTargetsService
             throw new NullReferenceException("The XML Document has no valid root element.");
         }
 
-        var nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
-        nsmgr.AddNamespace("msb", "http://schemas.microsoft.com/developer/msbuild/2003");
-
-        var modified = (
-            AppendCleanElement(xmlDocument, nsmgr, root) ||
-            AppendProcessElement(xmlDocument, nsmgr, root) ||
-            AppendProcess47Element(xmlDocument, nsmgr, root));
-
-        return (xmlDocument, modified);
-    }
-
-    private static bool AppendProcess47Element(XmlDocument xmlDocument, XmlNamespaceManager nsmgr, XmlElement root)
-    {
-        var process47Node = xmlDocument.SelectSingleNode(Global.SimplSharpProcess47Query, nsmgr);
-
-        if (process47Node is not null)
+        var modified = new bool[]
         {
-            return false;
-        }
-        var simplSharpProcessFrameworkElement = xmlDocument.CreateElement(Global.XmlTarget);
-        simplSharpProcessFrameworkElement.SetAttribute(Global.XmlName, Global.SimplSharpCleanTarget);
+            AppendCleanElement(xmlDocument, root),
+            AppendProcessElement(xmlDocument, root), 
+            AppendProcess47Element(xmlDocument, root)
+        };
 
-        root.AppendChild(simplSharpProcessFrameworkElement);
-        return true;
+        return (xmlDocument, modified.Any(m => m));
     }
 
-    private static bool AppendProcessElement(XmlDocument xmlDocument, XmlNamespaceManager nsmgr, XmlElement root)
+    private static bool AppendCleanElement(XmlDocument xmlDocument, XmlElement root)
     {
-        var processNode = xmlDocument.SelectSingleNode(Global.SimplSharpProcessQuery, nsmgr);
+        var targets = root.GetElementsByTagName(Global.XmlTarget);
+        var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpCleanTarget);
 
-        if (processNode is not null)
-        {
-            return false;
-        }
-        var simplSharpProcessElement = xmlDocument.CreateElement(Global.XmlTarget);
-        simplSharpProcessElement.SetAttribute(Global.XmlName, Global.SimplSharpCleanTarget);
-
-        root.AppendChild(simplSharpProcessElement);
-        return true;
-    }
-
-    private static bool AppendCleanElement(XmlDocument xmlDocument, XmlNamespaceManager nsmgr, XmlElement root)
-    {
-        var cleanNode = xmlDocument.SelectSingleNode(Global.SimplSharpCleanQuery, nsmgr);
-
-        if (cleanNode is not null)
+        if (targetExists)
         {
             return false;
         }
@@ -155,10 +126,44 @@ internal sealed class BuildTargetsService
         return true;
     }
 
+    private static bool AppendProcess47Element(XmlDocument xmlDocument, XmlElement root)
+    {
+        var targets = root.GetElementsByTagName(Global.XmlTarget);
+        var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpProcess47Target);
+
+        if (targetExists)
+        {
+            return false;
+        }
+        var simplSharpProcessFrameworkElement = xmlDocument.CreateElement(Global.XmlTarget);
+        simplSharpProcessFrameworkElement.SetAttribute(Global.XmlName, Global.SimplSharpProcess47Target);
+
+        root.AppendChild(simplSharpProcessFrameworkElement);
+        return true;
+    }
+
+    private static bool AppendProcessElement(XmlDocument xmlDocument, XmlElement root)
+    {
+        var targets = root.GetElementsByTagName(Global.XmlTarget);
+        var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpProcessTarget);
+
+        if (targetExists)
+        {
+            return false;
+        }
+        var simplSharpProcessElement = xmlDocument.CreateElement(Global.XmlTarget);
+        simplSharpProcessElement.SetAttribute(Global.XmlName, Global.SimplSharpProcessTarget);
+
+        root.AppendChild(simplSharpProcessElement);
+        return true;
+    }
+
+
+
     /// <summary>
     /// The results of the directory build target functions.
     /// </summary>
-    internal enum BuildTargetsResult
+    public enum BuildTargetsResult
     {
         /// <summary>
         /// A new file was created
