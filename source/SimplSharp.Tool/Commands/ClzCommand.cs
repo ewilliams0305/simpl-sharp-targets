@@ -30,7 +30,7 @@ internal sealed class ClzCommand
 
 
     [Command("clz", Aliases = new string []{"l"}, Description = "Creates a CLZ from the target assembly DLL referencing the SimplSharp SDK")]
-    public void CreateDriver(
+    public void CreateClz(
         [Option(
             shortName: 'p',
             Description = "File path for the compiled assembly that will be converted to a SimplSharp CLZ",

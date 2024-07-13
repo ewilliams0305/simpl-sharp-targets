@@ -13,7 +13,7 @@ internal sealed class DirectoryBuildTargetsCommand(ILogger<DirectoryBuildTargets
 {
 
     [Command("targets", Aliases = new string[] { "t" }, Description = "Creates or modifies a the Directory.Build.targets file in the provided directory.")]
-    public void CreateDriver(
+    public void CreateTargets(
         [Option(
             shortName: 'd',
             Description = "Directory to scan for an existing Directory.Build.targets file",
