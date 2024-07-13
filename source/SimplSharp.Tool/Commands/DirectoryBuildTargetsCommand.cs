@@ -12,7 +12,7 @@ namespace SimplSharp.Tool;
 internal sealed class DirectoryBuildTargetsCommand(ILogger<DirectoryBuildTargetsCommand> logger, BuildTargetsService buildTargetsService)
 {
 
-    [Command("targets", Aliases = new string[] { "l" }, Description = "Creates or modifies a the Directory.Build.targets file in the provided directory.")]
+    [Command("targets", Aliases = new string[] { "t" }, Description = "Creates or modifies a the Directory.Build.targets file in the provided directory.")]
     public void CreateDriver(
         [Option(
             shortName: 'd',

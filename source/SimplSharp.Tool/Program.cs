@@ -14,5 +14,6 @@ builder.Services
 var app = builder.Build();
 
 app.AddCommands<ClzCommand>();
+app.AddCommands<DirectoryBuildTargetsCommand>();
 
 app.Run();
