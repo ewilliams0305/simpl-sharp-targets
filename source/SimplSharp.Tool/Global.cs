@@ -50,10 +50,8 @@ internal sealed class Global
     /// </summary>
     public const string SimplSharpProcess47Target = "SimplSharpPostProcess47";
 
-
-    public const string SimplSharpCleanQuery = "//msb:Target[@Name='SimplSharpClean']";
-
-    public const string SimplSharpProcessQuery = "//msb:Target[@Name='SimplSharpPostProcess']";
-
-    public const string SimplSharpProcess47Query = "//msb:Target[@Name='SimplSharpPostProcess47']";
+    /// <summary>
+    /// The targets namespace
+    /// </summary>
+    public const string XmlNameSpace = @"http://schemas.microsoft.com/developer/msbuild/2003";
 }

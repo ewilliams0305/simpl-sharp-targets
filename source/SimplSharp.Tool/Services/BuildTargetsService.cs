@@ -113,14 +113,14 @@ public sealed class BuildTargetsService
 
     private static bool AppendCleanElement(XmlDocument xmlDocument, XmlElement root)
     {
-        var targets = root.GetElementsByTagName(Global.XmlTarget);
+        var targets = root.GetElementsByTagName(Global.XmlTarget, Global.XmlNameSpace);
         var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpCleanTarget);
 
         if (targetExists)
         {
             return false;
         }
-        var simplSharpCleanElement = xmlDocument.CreateElement(Global.XmlTarget);
+        var simplSharpCleanElement = xmlDocument.CreateElement(Global.XmlTarget, Global.XmlNameSpace);
         simplSharpCleanElement.SetAttribute(Global.XmlName, Global.SimplSharpCleanTarget);
         root.AppendChild(simplSharpCleanElement);
         return true;
@@ -128,14 +128,14 @@ public sealed class BuildTargetsService
 
     private static bool AppendProcess47Element(XmlDocument xmlDocument, XmlElement root)
     {
-        var targets = root.GetElementsByTagName(Global.XmlTarget);
+        var targets = root.GetElementsByTagName(Global.XmlTarget, Global.XmlNameSpace);
         var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpProcess47Target);
 
         if (targetExists)
         {
             return false;
         }
-        var simplSharpProcessFrameworkElement = xmlDocument.CreateElement(Global.XmlTarget);
+        var simplSharpProcessFrameworkElement = xmlDocument.CreateElement(Global.XmlTarget, Global.XmlNameSpace);
         simplSharpProcessFrameworkElement.SetAttribute(Global.XmlName, Global.SimplSharpProcess47Target);
 
         root.AppendChild(simplSharpProcessFrameworkElement);
@@ -144,14 +144,14 @@ public sealed class BuildTargetsService
 
     private static bool AppendProcessElement(XmlDocument xmlDocument, XmlElement root)
     {
-        var targets = root.GetElementsByTagName(Global.XmlTarget);
+        var targets = root.GetElementsByTagName(Global.XmlTarget, Global.XmlNameSpace);
         var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpProcessTarget);
 
         if (targetExists)
         {
             return false;
         }
-        var simplSharpProcessElement = xmlDocument.CreateElement(Global.XmlTarget);
+        var simplSharpProcessElement = xmlDocument.CreateElement(Global.XmlTarget, Global.XmlNameSpace);
         simplSharpProcessElement.SetAttribute(Global.XmlName, Global.SimplSharpProcessTarget);
 
         root.AppendChild(simplSharpProcessElement);
