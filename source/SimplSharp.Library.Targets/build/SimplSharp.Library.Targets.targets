@@ -28,7 +28,12 @@
   </Target>
 
 
-  <!-- Copy Directory.Build.targets  -->
+  <!-- 
+      Conditionally Creates a Directory.Build.targets file that overrides the SIMPL Sharp targets
+      If the targets are found and contain the overrides that file is ignored
+      If the targets are found and missing the overrides the file will be updated with this the overrides
+      IF there is no targets file a new file will be created.
+  -->
   <Target Name="CreateOrModifyBuildTargets" BeforeTargets="BeforeBuild">
     <Message Importance="high" Text="----> Creating Directory.Build.targets file in the $(MSBuildProjectDirectory) directory"/>
     <Message Importance="high" Text="----> If the targets already exist the overrides will be added to the file"/>
