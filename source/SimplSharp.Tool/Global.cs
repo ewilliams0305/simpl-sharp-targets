@@ -19,4 +19,39 @@ internal sealed class Global
     /// The extension used for a Simpl Sharp Program Library
     /// </summary>
     public const string ProgramLibraryExtension = ".cplz";
+
+    /// <summary>
+    /// The directory build targets file name
+    /// </summary>
+    public const string DirectoryTargetsFile = "Directory.Build.targets";
+
+    /// <summary>
+    /// The MSBuild XML Target
+    /// </summary>
+    public const string XmlTarget = "Target";
+    
+    /// <summary>
+    /// The Targets Name
+    /// </summary>
+    public const string XmlName = "Name";
+
+    /// <summary>
+    /// The target name to override
+    /// </summary>
+    public const string SimplSharpCleanTarget = "SimplSharpClean";
+
+    /// <summary>
+    /// The target name to override
+    /// </summary>
+    public const string SimplSharpProcessTarget = "SimplSharpPostProcess";
+
+    /// <summary>
+    /// The target name to override
+    /// </summary>
+    public const string SimplSharpProcess47Target = "SimplSharpPostProcess47";
+
+    /// <summary>
+    /// The targets namespace
+    /// </summary>
+    public const string XmlNameSpace = @"http://schemas.microsoft.com/developer/msbuild/2003";
 }
