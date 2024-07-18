@@ -60,7 +60,6 @@ internal sealed class ArchiveService
         }
     }
 
-
     /// <summary>
     /// Creates a target file path for an assembly.
     /// </summary>

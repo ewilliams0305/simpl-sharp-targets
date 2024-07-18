@@ -21,6 +21,7 @@ internal sealed class ClzCommand
     /// </summary>
     /// <param name="logger">A provided console logger</param>
     /// <param name="manifestService">The manifest service to compile a manifest information file.</param>
+    /// <param name="archiveService">Service used to pack the CLZ</param>
     public ClzCommand(ILogger<ClzCommand> logger, ManifestService manifestService, ArchiveService archiveService)
     {
         _logger = logger;

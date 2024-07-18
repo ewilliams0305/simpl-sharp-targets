@@ -48,52 +48,7 @@ internal sealed class ManifestService
       
             var version = assembly.GetName().Version!.ToString();
 
-            var xmlDoc = new XmlDocument();
-            var root = xmlDoc.CreateElement("ProgramInfo");
-            xmlDoc.AppendChild(root);
-
-            var required = xmlDoc.CreateElement("RequiredInfo");
-            root.AppendChild(required);
-
-            var node = xmlDoc.CreateElement("FriendlyName");
-            node.AppendChild(xmlDoc.CreateTextNode(name.Length > 20 ? name[..20] : name));
-            required.AppendChild(node);
-
-            node = xmlDoc.CreateElement("SystemName");
-            node.AppendChild(xmlDoc.CreateTextNode(name));
-            required.AppendChild(node);
-
-            node = xmlDoc.CreateElement("EntryPoint");
-            node.AppendChild(xmlDoc.CreateTextNode(name));
-            required.AppendChild(node);
-
-            node = xmlDoc.CreateElement("DesignToolId");
-            node.AppendChild(xmlDoc.CreateTextNode("6"));
-            required.AppendChild(node);
-
-            node = xmlDoc.CreateElement("ProgramToolId");
-            node.AppendChild(xmlDoc.CreateTextNode("6"));
-            required.AppendChild(node);
-
-            var fileInfo = new FileInfo(targetPath);
-
-            var optional = xmlDoc.CreateElement("OptionalInfo");
-            root.AppendChild(optional);
-
-            node = xmlDoc.CreateElement("CompiledOn");
-            node.AppendChild(xmlDoc.CreateTextNode(fileInfo.LastWriteTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz", DateTimeFormatInfo.InvariantInfo)));
-            optional.AppendChild(node);
-
-            node = xmlDoc.CreateElement("CompilerRev");
-            node.AppendChild(xmlDoc.CreateTextNode(version));
-            optional.AppendChild(node);
-
-            var plugin = xmlDoc.CreateElement("Plugin");
-            root.AppendChild(plugin);
-
-            node = xmlDoc.CreateElement("Include4.dat");
-            node.AppendChild(xmlDoc.CreateTextNode($"{sdkVersion.ProductMajorPart}.{sdkVersion.ProductMinorPart}.{sdkVersion.ProductBuildPart}" ));
-            plugin.AppendChild(node);
+            var xmlDoc = GenerateProgramConfig(targetPath, name, version, sdkVersion);
 
             manifest = xmlDoc;
             return true;
@@ -105,6 +60,136 @@ internal sealed class ManifestService
             return false;
         }
     }
+
+    public bool CreateCpzManifestXml(Assembly assembly, string targetName, string targetPath, Version sdkVersion, out XmlDocument? manifest)
+    {
+        var references = assembly.GetReferencedAssemblies().ToList();
+
+        try
+        {
+
+            var name = targetName.Replace(Global.LibraryExtension, "");
+
+            var version = assembly.GetName().Version!.ToString();
+
+            var xmlDoc = GenerateProgramConfig(targetPath, name, version, sdkVersion.ToString(3));
+
+            manifest = xmlDoc;
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to generate the manifest file from the provided assembly {assembly}", assembly);
+            manifest = null;
+            return false;
+        }
+    }
+
+
+    private static XmlDocument GenerateProgramConfig(string targetPath, string name, string version, FileVersionInfo sdkVersion)
+    {
+        var xmlDoc = new XmlDocument();
+        var root = xmlDoc.CreateElement("ProgramInfo");
+        xmlDoc.AppendChild(root);
+
+        var required = xmlDoc.CreateElement("RequiredInfo");
+        root.AppendChild(required);
+
+        var node = xmlDoc.CreateElement("FriendlyName");
+        node.AppendChild(xmlDoc.CreateTextNode(name.Length > 20 ? name[..20] : name));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("SystemName");
+        node.AppendChild(xmlDoc.CreateTextNode(name));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("EntryPoint");
+        node.AppendChild(xmlDoc.CreateTextNode(name));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("DesignToolId");
+        node.AppendChild(xmlDoc.CreateTextNode("6"));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("ProgramToolId");
+        node.AppendChild(xmlDoc.CreateTextNode("6"));
+        required.AppendChild(node);
+
+        var fileInfo = new FileInfo(targetPath);
+
+        var optional = xmlDoc.CreateElement("OptionalInfo");
+        root.AppendChild(optional);
+
+        node = xmlDoc.CreateElement("CompiledOn");
+        node.AppendChild(xmlDoc.CreateTextNode(fileInfo.LastWriteTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz", DateTimeFormatInfo.InvariantInfo)));
+        optional.AppendChild(node);
+
+        node = xmlDoc.CreateElement("CompilerRev");
+        node.AppendChild(xmlDoc.CreateTextNode(version));
+        optional.AppendChild(node);
+
+        var plugin = xmlDoc.CreateElement("Plugin");
+        root.AppendChild(plugin);
+
+        node = xmlDoc.CreateElement("Include4.dat");
+        node.AppendChild(xmlDoc.CreateTextNode($"{sdkVersion.ProductMajorPart}.{sdkVersion.ProductMinorPart}.{sdkVersion.ProductBuildPart}"));
+        plugin.AppendChild(node);
+
+        return xmlDoc;
+    }
+
+    private static XmlDocument GenerateProgramConfig(string targetPath, string name, string version, string sdkVersion)
+    {
+        var xmlDoc = new XmlDocument();
+        var root = xmlDoc.CreateElement("ProgramInfo");
+        xmlDoc.AppendChild(root);
+
+        var required = xmlDoc.CreateElement("RequiredInfo");
+        root.AppendChild(required);
+
+        var node = xmlDoc.CreateElement("FriendlyName");
+        node.AppendChild(xmlDoc.CreateTextNode(name.Length > 20 ? name[..20] : name));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("SystemName");
+        node.AppendChild(xmlDoc.CreateTextNode(name));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("EntryPoint");
+        node.AppendChild(xmlDoc.CreateTextNode(name.Replace(".cpz", "")));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("DesignToolId");
+        node.AppendChild(xmlDoc.CreateTextNode("6"));
+        required.AppendChild(node);
+
+        node = xmlDoc.CreateElement("ProgramToolId");
+        node.AppendChild(xmlDoc.CreateTextNode("6"));
+        required.AppendChild(node);
+
+        var fileInfo = new FileInfo(targetPath);
+
+        var optional = xmlDoc.CreateElement("OptionalInfo");
+        root.AppendChild(optional);
+
+        node = xmlDoc.CreateElement("CompiledOn");
+        node.AppendChild(xmlDoc.CreateTextNode(fileInfo.LastWriteTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz", DateTimeFormatInfo.InvariantInfo)));
+        optional.AppendChild(node);
+
+        node = xmlDoc.CreateElement("CompilerRev");
+        node.AppendChild(xmlDoc.CreateTextNode(version));
+        optional.AppendChild(node);
+
+        var plugin = xmlDoc.CreateElement("Plugin");
+        root.AppendChild(plugin);
+
+        node = xmlDoc.CreateElement("Include4.dat");
+        node.AppendChild(xmlDoc.CreateTextNode(sdkVersion));
+        plugin.AppendChild(node);
+
+        return xmlDoc;
+    }
+
 
     /// <summary>
     /// Creates a file path for the program configuration file added to the archive

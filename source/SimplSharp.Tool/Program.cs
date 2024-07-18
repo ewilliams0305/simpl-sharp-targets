@@ -5,6 +5,8 @@ using SimplSharp.Tool;
 
 var builder = CoconaApp.CreateBuilder();
 
+Console.WriteLine(Directory.GetCurrentDirectory());
+
 builder.Services
     .AddTransient<BuildTargetsService>()
     .AddTransient<ProjectService>()
@@ -14,6 +16,7 @@ builder.Services
 var app = builder.Build();
 
 app.AddCommands<ClzCommand>();
+app.AddCommands<CpzCommand>();
 app.AddCommands<ProjectQueryCommand>();
 app.AddCommands<DirectoryBuildTargetsCommand>();
 
