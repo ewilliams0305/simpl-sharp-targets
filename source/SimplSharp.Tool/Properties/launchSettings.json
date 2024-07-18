@@ -5,18 +5,18 @@
     },
     "CLZ": {
       "commandName": "Project",
-      "commandLineArgs": "clz -p .\\tests\\SimplSharp.Library\\bin\\Debug\\net472\\SimplSharp.Library.dll",
-      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\source\\SimplSharp.Tool"
+      "commandLineArgs": "clz -p .\\SimplSharp.Library\\bin\\Debug\\net472\\SimplSharp.Library.dll",
+      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\tests"
     },
     "CPZ .Net6": {
       "commandName": "Project",
-      "commandLineArgs": "cpz -p .\\tests\\SimplSharp.Program\\SimplSharp.Program.csprojSimplSharp.Program\\SimplSharp.Program.csproj -t net6 -c Debug",
-      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\source\\SimplSharp.Tool"
+      "commandLineArgs": "cpz -p .\\SimplSharp.Program\\SimplSharp.Program.csprojSimplSharp.Program\\SimplSharp.Program.csproj -t net6 -c Debug",
+      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\tests"
     },
     "CPZ .Net472": {
       "commandName": "Project",
-      "commandLineArgs": "cpz -p .\\tests\\SimplSharp.Program\\SimplSharp.Program.csproj -t net472 -c Debug",
-      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\source\\SimplSharp.Tool"
+      "commandLineArgs": "cpz -p .\\SimplSharp.Program\\SimplSharp.Program.csproj -t net472 -c Debug",
+      "workingDirectory": "C:\\dev\\simpl-sharp-targets\\tests"
     }
   }
 }
