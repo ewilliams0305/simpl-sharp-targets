@@ -5,8 +5,6 @@ using SimplSharp.Tool;
 
 var builder = CoconaApp.CreateBuilder();
 
-Console.WriteLine(Directory.GetCurrentDirectory());
-
 builder.Services
     .AddTransient<BuildTargetsService>()
     .AddTransient<ProjectService>()
