@@ -44,6 +44,11 @@ jobs:
           -u "//_:PropertyGroup/_:ToolVersion" \
           -v '${{ steps.gitversion.outputs.SemVer }}' \
           source/SimplSharp.Library.Targets/build/SimplSharp.Library.Targets.targets
+          
+        xmlstarlet ed --inplace \
+          -u "//_:PropertyGroup/_:ToolVersion" \
+          -v '${{ steps.gitversion.outputs.SemVer }}' \
+          source/SimplSharp.Program.Targets/build/SimplSharp.Program.Targets.targets
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
