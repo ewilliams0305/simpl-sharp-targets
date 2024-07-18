@@ -11,6 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Crestron.SimplSharp.SDK.Program" Version="2.20.66" />
-    <PackageReference Include="SimplSharp.Program.Targets" Version="0.1.10-cpz.2" />
+    <PackageReference Include="SimplSharp.Program.Targets" Version="0.1.10" />
   </ItemGroup>
 </Project>
