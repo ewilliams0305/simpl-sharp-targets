@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net472;net6</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IsPackable>true</IsPackable>
+    <Title>Simpl Sharp Targets</Title>
+    <Description>Build targets using the custom dotnet cli tool to generate SIMPL Sharp archives.</Description>
+    <PackageProjectUrl>https://github.com/ewilliams0305/simpl-sharp-targets</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ewilliams0305/simpl-sharp-targets</RepositoryUrl>
+    <PackageTags>Crestron;SimplSharp</PackageTags>
+    <PackageIcon>target.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.0.33</Version>
+    <NoWarn>NU5128</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="target.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="content/*.*" copyToOutput="true">
+      <Pack>true</Pack>
+      <PackagePath>contentFiles\any\any;content</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="build\SimplSharp.Program.Targets.targets">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\build</PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <Target Name="CopyPackageToLocalSource" AfterTargets="Pack">
+    <ItemGroup>
+      <GeneratedNuGetPackage Include="$(OutputPath)*.nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(GeneratedNuGetPackage)" DestinationFolder="$(SolutionDir)..\local" />
+  </Target>
+</Project>

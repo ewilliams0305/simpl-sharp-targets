@@ -38,12 +38,19 @@ jobs:
     - name: Install xmlstarlet
       run: sudo apt-get install -y xmlstarlet
   
-    - name: Update Tool Version In Targets
+    - name: Update Tool Version In Library Targets
       run: |
         xmlstarlet ed --inplace \
           -u "//_:PropertyGroup/_:ToolVersion" \
           -v '${{ steps.gitversion.outputs.SemVer }}' \
           source/SimplSharp.Library.Targets/build/SimplSharp.Library.Targets.targets
+
+    - name: Update Tool Version In Program Targets
+      run: |     
+        xmlstarlet ed --inplace \
+          -u "//_:PropertyGroup/_:ToolVersion" \
+          -v '${{ steps.gitversion.outputs.SemVer }}' \
+          source/SimplSharp.Program.Targets/build/SimplSharp.Program.Targets.targets
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v4

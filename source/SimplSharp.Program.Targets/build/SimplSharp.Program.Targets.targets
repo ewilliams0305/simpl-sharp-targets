@@ -9,7 +9,7 @@
   <!-- Data Variables -->
 
   <PropertyGroup>
-    <ToolCommand>dotnet simplsharp clz</ToolCommand>
+    <ToolCommand>dotnet simplsharp cpz</ToolCommand>
     <TargetsCommand>dotnet simplsharp targets</TargetsCommand>
     <!-- 
         Tool version will be replaced during the CI actions.  
@@ -17,7 +17,7 @@
         This will happen from github actions prior to the dotnet build command.
     -->
     <ToolVersion>0.1.3</ToolVersion>
-    <ArchiveExtension>.clz</ArchiveExtension>
+    <ArchiveExtension>.cpz</ArchiveExtension>
   </PropertyGroup>
 
   <!-- Installation -->

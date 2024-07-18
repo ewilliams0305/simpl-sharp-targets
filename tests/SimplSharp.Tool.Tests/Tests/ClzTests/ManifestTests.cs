@@ -1,12 +1,12 @@
+using System.Xml.Linq;
 using FluentAssertions;
 using SimplSharp.Tool.Tests.Setup;
-using System.Xml.Linq;
 using File = System.IO.File;
 
-namespace SimplSharp.Tool.Tests;
+namespace SimplSharp.Tool.Tests.ClzTests;
 
 [Collection(nameof(ClzTestCollection))]
-public class ManifestTests(ClzTestFixture fixture)
+public class ManifestTests(ExecutableTestFixture fixture)
 {
     [Fact]
     public void ClzCommand_CreatesManifest_WhenTargetIsValid()

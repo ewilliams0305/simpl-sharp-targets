@@ -113,7 +113,7 @@ public sealed class BuildTargetsService
 
     private static bool AppendCleanElement(XmlDocument xmlDocument, XmlElement root)
     {
-        var targets = root.GetElementsByTagName(Global.XmlTarget, Global.XmlNameSpace);
+        var targets = root.GetElementsByTagName(Global.XmlTarget);
         var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpCleanTarget);
 
         if (targetExists)
@@ -128,7 +128,7 @@ public sealed class BuildTargetsService
 
     private static bool AppendProcess47Element(XmlDocument xmlDocument, XmlElement root)
     {
-        var targets = root.GetElementsByTagName(Global.XmlTarget, Global.XmlNameSpace);
+        var targets = root.GetElementsByTagName(Global.XmlTarget);
         var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpProcess47Target);
 
         if (targetExists)
@@ -144,7 +144,7 @@ public sealed class BuildTargetsService
 
     private static bool AppendProcessElement(XmlDocument xmlDocument, XmlElement root)
     {
-        var targets = root.GetElementsByTagName(Global.XmlTarget, Global.XmlNameSpace);
+        var targets = root.GetElementsByTagName(Global.XmlTarget);
         var targetExists = targets.Cast<XmlElement>().Any(target => target.GetAttribute(Global.XmlName) == Global.SimplSharpProcessTarget);
 
         if (targetExists)

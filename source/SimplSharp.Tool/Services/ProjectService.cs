@@ -59,6 +59,11 @@ public sealed class ProjectService
             return null;
         }
 
+        if (!csprojFilePath.EndsWith("csproj"))
+        {
+            return null;
+        }
+
         var doc = new XmlDocument();
         doc.Load(csprojFilePath);
         var root = doc.DocumentElement;

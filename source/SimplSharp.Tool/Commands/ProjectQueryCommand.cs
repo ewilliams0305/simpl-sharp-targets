@@ -44,7 +44,7 @@ internal sealed class ProjectQueryCommand(ILogger<ProjectQueryCommand> logger, P
 
         catch (Exception e)
         {
-            logger.LogWarning("Unhanded exception parsing {project}", csprojFilePath);
+            logger.LogWarning(e,"Unhanded exception parsing {project}", csprojFilePath);
             Environment.Exit(100);
         }
     }

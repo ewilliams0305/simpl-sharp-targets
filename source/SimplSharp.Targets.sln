@@ -30,6 +30,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Targets.Clz", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Library", "..\tests\SimplSharp.Library\SimplSharp.Library.csproj", "{8229BEB4-1631-4625-A2A7-202609D02395}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Program.Targets", "SimplSharp.Program.Targets\SimplSharp.Program.Targets.csproj", "{0AC3E4AE-39F5-488D-A872-725C6A1667FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Targets.Cpz", "..\example\SimplSharp.Targets.Cpz\SimplSharp.Targets.Cpz.csproj", "{F0658301-B368-4530-8274-94E58EFA877B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +62,12 @@ Global
 		{8229BEB4-1631-4625-A2A7-202609D02395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8229BEB4-1631-4625-A2A7-202609D02395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8229BEB4-1631-4625-A2A7-202609D02395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AC3E4AE-39F5-488D-A872-725C6A1667FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AC3E4AE-39F5-488D-A872-725C6A1667FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AC3E4AE-39F5-488D-A872-725C6A1667FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AC3E4AE-39F5-488D-A872-725C6A1667FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0658301-B368-4530-8274-94E58EFA877B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0658301-B368-4530-8274-94E58EFA877B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +79,8 @@ Global
 		{BF41CEFE-054E-4B11-9170-A09079B2E763} = {CAC12CC3-5310-4450-9406-4731559BEC22}
 		{2B859348-6F01-4D3D-9B4C-6D7C94B6C142} = {DB484083-BFFB-4BC5-9F29-CDB4C1880F52}
 		{8229BEB4-1631-4625-A2A7-202609D02395} = {CAC12CC3-5310-4450-9406-4731559BEC22}
+		{0AC3E4AE-39F5-488D-A872-725C6A1667FD} = {B65F950E-32F9-42F5-BDEE-746766B0F104}
+		{F0658301-B368-4530-8274-94E58EFA877B} = {DB484083-BFFB-4BC5-9F29-CDB4C1880F52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64F92463-70FE-4CDD-8B58-FF9B32A0452D}

@@ -41,10 +41,14 @@ internal class FilePaths
     public static string ExePath => Path.Combine(Directory.GetCurrentDirectory(), "source", "SimplSharp.Tool", "bin", Configuration, "net8.0", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "SimplSharp.Tool" : "SimplSharp.Tool.exe");
     
     public static string TargetLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "bin", Configuration, "net472", "SimplSharp.Library.dll");
-    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "SimplSharp.Library.csproj");
+    public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "SimplSharp.Library.csproj");    
+    public static string TargetProgramPath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Program", "bin", Configuration, "net472", "SimplSharp.Program.dll");
+    public static string TargetProgramProject => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Program", "SimplSharp.Program.csproj");
     public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "bin", Configuration, "net472", "SimplSharp.Library.clz");
+    public static string TargetProgramNet6ArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Program", "bin", Configuration, "net6", "SimplSharp.Program.cpz");
+    public static string TargetProgramNet472ArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Program", "bin", Configuration, "net472", "SimplSharp.Program.cpz");
     
-    public static string WrapperLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Targets.Clz", "bin", Configuration, "net472", "SimplSharp.Targets.Clz.dll");
+    public static string WrapperLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Targets.Clz", "SimplSharp.Targets.Clz.csproj");
     public static string WrapperClzPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Targets.Clz", "bin", Configuration, "net472", "SimplSharp.Targets.Clz.clz");
     
     public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "bin", Configuration, "net472", "ProgramInfo.config");
@@ -61,6 +65,22 @@ internal class FilePaths
         if (File.Exists(TargetArchivePath))
         {
             File.Delete(TargetArchivePath);
+        }
+    }
+
+    public static void DeleteExistingNet6Cpz()
+    {
+        if (File.Exists(TargetProgramNet6ArchivePath))
+        {
+            File.Delete(TargetProgramNet6ArchivePath);
+        }
+    }
+
+    public static void DeleteExistingNet472Cpz()
+    {
+        if (File.Exists(TargetProgramNet472ArchivePath))
+        {
+            File.Delete(TargetProgramNet472ArchivePath);
         }
     }
 
