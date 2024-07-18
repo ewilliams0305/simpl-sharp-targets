@@ -13,7 +13,7 @@ namespace SimplSharp.Tool.Tests.Setup;
 /// Since this test project depends on the other projects they should build first.
 /// Once built the tests target the output of the tooling as well as the library project.
 /// </summary>
-public class ClzTestFixture : IAsyncLifetime
+public class CpzTestFixture : IAsyncLifetime
 {
 
     public string ReferencedSdkVersion { get; set; } = string.Empty;
@@ -32,17 +32,17 @@ public class ClzTestFixture : IAsyncLifetime
     }
 
 
-    public (string output, int exitCode) CreateClz(string? targetProject = null, string? destination = null)
+    public (string output, int exitCode) CreateCpz(string? targetProject = null, string? destination = null)
     {
         var projectPath = targetProject ?? FilePaths.TargetLibraryProject;
 #if DEBUG
         var args = destination != null
-            ? "clz -p " + projectPath + " -c Debug" + "-d" + destination
-            : "clz -p " + projectPath + " -c Debug";
+            ? "cpz -p " + projectPath + " -c Debug" + "-d" + destination
+            : "cpz -p " + projectPath + " -c Debug";
 #else
         var args = destination != null
-            ? "clz -p " + projectPath + " -c Release" + "-d" + destination
-            : "clz -p " + projectPath + " -c Release";
+            ? "cpz -p " + projectPath + " -c Release" + "-d" + destination
+            : "cpz -p " + projectPath + " -c Release";
 #endif
 
         var processStartInfo = new ProcessStartInfo
@@ -63,32 +63,6 @@ public class ClzTestFixture : IAsyncLifetime
         return (output, process.ExitCode);
     }
 
-    public (string output, int exitCode) CompileSimplPlus(string? targetWrapper = null)
-    {
-        if (!File.Exists(@"C:\Program Files (x86)\Crestron\Simpl\SPlusCC.exe"))
-        {
-            return ("", 1);
-        }
-
-        var processStartInfo = new ProcessStartInfo
-        {
-            FileName = @"C:\Program Files (x86)\Crestron\Simpl\SPlusCC.exe",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-            Arguments = targetWrapper == null
-                ? @$"""\rebuild"" ""{FilePaths.UserPlusWrapperPath}"" ""\target"" ""series4"""
-                : @$"""\rebuild"" ""{targetWrapper}"" ""\target"" ""series4""",
-        };
-
-        using var process = new Process();
-        process.StartInfo = processStartInfo;
-        process.Start();
-
-        var output = process.StandardOutput.ReadToEnd();
-        process.WaitForExit();
-        return (output, process.ExitCode);
-    }
 
     /// <inheritdoc />
     public Task DisposeAsync()

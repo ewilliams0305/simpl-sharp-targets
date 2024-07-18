@@ -1,11 +1,11 @@
+using System.Runtime.InteropServices;
 using FluentAssertions;
 using SimplSharp.Tool.Tests.Setup;
-using System.Runtime.InteropServices;
 
-namespace SimplSharp.Tool.Tests;
+namespace SimplSharp.Tool.Tests.ClzTests;
 
 [Collection(nameof(ClzTestCollection))]
-public class WrapperTests(ClzTestFixture fixture)
+public class WrapperTests(ExecutableTestFixture fixture)
 {
 
     [Fact]
