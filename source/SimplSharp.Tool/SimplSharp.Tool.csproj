@@ -17,6 +17,7 @@
     <PackageIcon>target.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <NoWarn>IDE0300</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

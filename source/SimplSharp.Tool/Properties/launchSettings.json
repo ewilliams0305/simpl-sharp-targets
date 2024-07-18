@@ -5,7 +5,7 @@
     },
     "CLZ": {
       "commandName": "Project",
-      "commandLineArgs": "clz -p .\\SimplSharp.Library\\bin\\Debug\\net472\\SimplSharp.Library.dll",
+      "commandLineArgs": "clz -p .\\SimplSharp.Library\\SimplSharp.Library.csproj  -t net472 -c Debug",
       "workingDirectory": "C:\\dev\\simpl-sharp-targets\\tests"
     },
     "CPZ .Net6": {

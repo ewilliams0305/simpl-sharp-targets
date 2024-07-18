@@ -27,9 +27,10 @@ internal sealed class ManifestService
     /// <param name="assembly">The SimplSharp assembly targeted by the build pipeline</param>
     /// <param name="targetPath">Ask Crestron...</param>
     /// <param name="targetName"></param>
+    /// <param name="sdkVersion">Version of the crestron SDK referenced by the project</param>
     /// <param name="manifest">The generated manifest XML document.</param>
     /// <returns>True when the manifest is created, and false when the manifest is skipped.</returns>
-    public bool CreateClzManifestXml(Assembly assembly, string targetName, string targetPath, out XmlDocument? manifest)
+    public bool CreateClzManifestXml(Assembly assembly, string targetName, string targetPath, Version sdkVersion, out XmlDocument? manifest)
     {
         var references = assembly.GetReferencedAssemblies().ToList();
 
@@ -42,13 +43,9 @@ internal sealed class ManifestService
             }
 
             var name = targetName.Replace(Global.LibraryExtension, "");
-
-            var directory = new FileInfo(targetPath).Directory!;
-            var sdkVersion = FileVersionInfo.GetVersionInfo(Path.Combine(directory.FullName, "SimplSharpProgrammingInterfaces.dll"));
-      
             var version = assembly.GetName().Version!.ToString();
 
-            var xmlDoc = GenerateProgramConfig(targetPath, name, version, sdkVersion);
+            var xmlDoc = GenerateProgramConfig(targetPath, name, version, sdkVersion.ToString(3));
 
             manifest = xmlDoc;
             return true;
@@ -61,6 +58,15 @@ internal sealed class ManifestService
         }
     }
 
+    /// <summary>
+    /// Creates a CPZ manifest
+    /// </summary>
+    /// <param name="assembly">The SimplSharp assembly targeted by the build pipeline</param>
+    /// <param name="targetPath">Ask Crestron...</param>
+    /// <param name="targetName"></param>
+    /// <param name="sdkVersion">Version of the crestron SDK referenced by the project</param>
+    /// <param name="manifest">The generated manifest XML document.</param>
+    /// <returns>True when the manifest is created, and false when the manifest is skipped.</returns>
     public bool CreateCpzManifestXml(Assembly assembly, string targetName, string targetPath, Version sdkVersion, out XmlDocument? manifest)
     {
         var references = assembly.GetReferencedAssemblies().ToList();

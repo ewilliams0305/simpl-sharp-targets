@@ -34,7 +34,7 @@ internal sealed class ArchiveService
                 .Where(f => !f.Name.EndsWith("targets"));
 
             var fileInfos = packageFiles as FileInfo[] ?? packageFiles.ToArray();
-            if (!fileInfos.Any())
+            if (fileInfos.Length == 0)
             {
                 _logger.LogError("Failed to locate nuget package source for {sdkVersion} {packagesPath}", sdkVersion, packagesPath);
                 return false;

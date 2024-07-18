@@ -1,5 +1,5 @@
 ﻿#pragma warning disable IDE0290
-#pragma warning disable IDE0300
+#pragma warning disable IDE0041
 
 using Cocona;
 using Microsoft.Extensions.Logging;
