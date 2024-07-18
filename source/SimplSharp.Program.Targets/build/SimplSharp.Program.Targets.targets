@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <CopyLocalLockFileAssemblies>False</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!-- Data Variables -->
+
+  <PropertyGroup>
+    <ToolCommand>dotnet simplsharp cpz</ToolCommand>
+    <TargetsCommand>dotnet simplsharp targets</TargetsCommand>
+    <!-- 
+        Tool version will be replaced during the CI actions.  
+        This will ensure this package always uses the correct version of the tooling it targets.
+        This will happen from github actions prior to the dotnet build command.
+    -->
+    <ToolVersion>0.1.3</ToolVersion>
+    <ArchiveExtension>.cpz</ArchiveExtension>
+  </PropertyGroup>
+
+  <!-- Installation -->
+
+  <Target Name="InstallTools" BeforeTargets="CreateOrModifyBuildTargets">
+    <Message Importance="high" Text="Checking for SimplSharp.Tool updates $(ToolVersion)" />
+    <Exec Command="dotnet tool install SimplSharp.Tool --version $(ToolVersion) --create-manifest-if-needed --allow-downgrade" />
+  </Target>
+
+
+  <!-- 
+      Conditionally Creates a Directory.Build.targets file that overrides the SIMPL Sharp targets
+      If the targets are found and contain the overrides that file is ignored
+      If the targets are found and missing the overrides the file will be updated with this the overrides
+      IF there is no targets file a new file will be created.
+  -->
+  <Target Name="CreateOrModifyBuildTargets" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="----> Creating Directory.Build.targets file in the $(MSBuildProjectDirectory) directory"/>
+    <Message Importance="high" Text="----> If the targets already exist the overrides will be added to the file"/>
+    <Exec Command="$(TargetsCommand) -d $(MSBuildProjectDirectory)" />
+  </Target>
+
+  <!-- Output Provided -->
+
+  <PropertyGroup>
+    <IsCustomOutputPath Condition="'$(OutputPath)' != '$(BaseOutputPath)bin\$(Configuration)\'">true</IsCustomOutputPath>
+  </PropertyGroup>
+
+  <!-- Clean Up -->
+
+  <Target Name="SimplSharpCleanup" AfterTargets="BeforeBuild;AfterClean">
+    <Delete Files="$(OutputPath)\ProgramInfo.config" ContinueOnError="true" />
+    <Delete Files="$(OutputPath)\$(TargetName)$(ArchiveExtension)" ContinueOnError="true" />
+  </Target>
+
+  <!-- Execute Actions -->
+
+  <Target Name="SimplSharpBuildArchive" BeforeTargets="AfterBuild">
+    <Message Importance="high" Text="----> Creating SIMPL Sharp Archive $(OutputPath)\$(AssemblyName).dll ----> $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'"/>
+    <Exec Command="$(ToolCommand) -p $(MSBuildProjectFullPath) -t $(TargetFramework) -c $(Configuration) -a $(OutputPath)\$(AssemblyName).dll -d $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'" />
+
+    <Message Importance="high" Text="----> Creating SIMPL Sharp Archive $(MSBuildProjectDirectory)\$(OutputPath)$(AssemblyName).dll ----> $(MSBuildProjectDirectory)\$(OutputPath)" Condition="'$(IsCustomOutputPath)' != 'true'"/>
+    <Exec Command="$(ToolCommand) -p $(MSBuildProjectFullPath) -t $(TargetFramework) -c $(Configuration) -a $(MSBuildProjectDirectory)\$(OutputPath)$(AssemblyName).dll" Condition="'$(IsCustomOutputPath)' != 'true'" />
+  </Target>
+
+</Project>
