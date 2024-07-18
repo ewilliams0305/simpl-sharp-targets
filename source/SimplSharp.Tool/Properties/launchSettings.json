@@ -10,7 +10,7 @@
     },
     "CPZ .Net6": {
       "commandName": "Project",
-      "commandLineArgs": "cpz -p .\\SimplSharp.Program\\SimplSharp.Program.csprojSimplSharp.Program\\SimplSharp.Program.csproj -t net6 -c Debug",
+      "commandLineArgs": "cpz -p .\\SimplSharp.Program\\SimplSharp.Program.csproj -t net6 -c Debug",
       "workingDirectory": "C:\\dev\\simpl-sharp-targets\\tests"
     },
     "CPZ .Net472": {

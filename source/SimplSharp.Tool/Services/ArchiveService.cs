@@ -15,7 +15,7 @@ internal sealed class ArchiveService
         _logger = logger;
     }
 
-    public bool CreateSimplSharpArchive(TargetType type, string targetAssemblyFilepath)
+    public bool CreateSimplSharpArchive(TargetType type, string targetAssemblyFilepath, Version sdkVersion)
     {
         try
         {
@@ -27,10 +27,26 @@ internal sealed class ArchiveService
                 File.Delete(archiveName);
             }
 
+            var packagesPath = GetPackagePath(type, sdkVersion);
+
+            var packageFiles = new DirectoryInfo(packagesPath)
+                .GetFiles("*.*", SearchOption.AllDirectories)
+                .Where(f => !f.Name.EndsWith("targets"));
+
+            var fileInfos = packageFiles as FileInfo[] ?? packageFiles.ToArray();
+            if (!fileInfos.Any())
+            {
+                _logger.LogError("Failed to locate nuget package source for {sdkVersion} {packagesPath}", sdkVersion, packagesPath);
+                return false;
+            }
+
             using var zipStream = new FileStream(archiveName, FileMode.Create, FileAccess.Write);
             using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create);
             
-            var outputFiles = Directory.GetFiles(outputPath, "*.*", SearchOption.AllDirectories);
+            var outputFiles = Directory.GetFiles(outputPath, "*.*", SearchOption.AllDirectories).ToList();
+
+            outputFiles.AddRange(fileInfos.Select(f => f.FullName));
+
             var copyOnvif = File.Exists(Path.Combine(outputPath, "SimplSharpOnvifInterface.dll"));
 
             foreach (var filename in outputFiles)
@@ -58,6 +74,25 @@ internal sealed class ArchiveService
             _logger.LogError(ex, "Failed to create archive {targetType} {path}", type, targetAssemblyFilepath);
             return false;
         }
+    }
+
+    private static string GetNugetDirectory()
+    {
+        var nugetPackagesRoot = Environment.GetEnvironmentVariable("NUGET_PACKAGES");
+
+        return nugetPackagesRoot ?? 
+               Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages");
+    }
+
+    private static string GetPackagePath(TargetType type, Version sdkVersion)
+    {
+        return type switch
+        {
+            TargetType.Library => Path.Combine(GetNugetDirectory(), "crestron.simplsharp.sdk.library", sdkVersion.ToString(3), "build"),
+            TargetType.Program => Path.Combine(GetNugetDirectory(), "crestron.simplsharp.sdk.program", sdkVersion.ToString(3), "build"),
+            TargetType.ProgramLibrary => Path.Combine(GetNugetDirectory(), "crestron.simplsharp.sdk.programlibrary", sdkVersion.ToString(3), "build"),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
     }
 
     /// <summary>

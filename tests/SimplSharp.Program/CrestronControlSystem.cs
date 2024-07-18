@@ -9,6 +9,11 @@ namespace SimplSharp.Program
         public override void InitializeSystem()
         {
             CrestronConsole.PrintLine("System Started");
+
+            ErrorLog.Warn("++++++++++++++++++++++++++++ Hello World +++++++++++++++++++++");
+            ErrorLog.Warn("++++++++++++++++++++++++++++ Hello World +++++++++++++++++++++");
+            ErrorLog.Warn("++++++++++++++++++++++++++++ Hello World +++++++++++++++++++++");
+            ErrorLog.Warn("++++++++++++++++++++++++++++ Hello World +++++++++++++++++++++");
         }
     }
 }

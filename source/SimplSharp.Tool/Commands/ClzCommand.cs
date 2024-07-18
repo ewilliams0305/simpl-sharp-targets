@@ -83,11 +83,11 @@ internal sealed class ClzCommand
 
             manifest!.Save(_manifestService.CreateManifestFileName(targetPath));
 
-            if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath))
-            {
-                _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
-                Environment.Exit(2);
-            }
+            //if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath))
+            //{
+            //    _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
+            //    Environment.Exit(2);
+            //}
 
             _logger.LogInformation("Successfully created {extension} from {assembly} located at {targetPath}", Global.LibraryExtension, assembly, targetPath);
 

@@ -64,15 +64,6 @@ internal sealed class CpzCommand
             return;
         }
 
-
-        var packageFiles = new DirectoryInfo(@"C:\Users\ewilliams\.nuget\packages\crestron.simplsharp.sdk.program\2.20.66\build").GetFiles("*.*", SearchOption.AllDirectories);
-
-        foreach (var packageFile in packageFiles)
-        {
-            Console.WriteLine(packageFile);
-        }
-
-
         var version = _projectService.QueryProjectForSimplSharpProgramVersion(path);
 
         if (version == null)
@@ -135,7 +126,7 @@ internal sealed class CpzCommand
 
         manifest!.Save(_manifestService.CreateManifestFileName(targetPath));
 
-        if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath))
+        if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath, version))
         {
             _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
             Environment.Exit(2);
@@ -162,7 +153,7 @@ internal sealed class CpzCommand
 
         manifest!.Save(_manifestService.CreateManifestFileName(targetPath));
 
-        if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath))
+        if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath, version))
         {
             _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
             Environment.Exit(2);
