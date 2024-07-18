@@ -26,6 +26,12 @@ public class ArchiveTests(ClzTestFixture fixture)
     [Fact]
     public void ClzCommand_CreatesArchiveFile_WhenAssemblyIsValidTarget()
     {
+
+        if (File.Exists(FilePaths.TargetLibraryProject))
+        {
+            Console.WriteLine("ededed");
+        }
+
         FilePaths.DeleteExistingClz();
 
         fixture.CreateClz();
