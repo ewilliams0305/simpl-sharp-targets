@@ -9,4 +9,8 @@
     <PackageReference Include="Crestron.SimplSharp.SDK.Program" Version="2.20.66" />
   </ItemGroup>
 
+  <Target Name="Debug" BeforeTargets="Build">
+    <Message Importance="high" Text="========> this package path ======> $(MSBuildThisFileDirectory)" />
+  </Target>
+
 </Project>

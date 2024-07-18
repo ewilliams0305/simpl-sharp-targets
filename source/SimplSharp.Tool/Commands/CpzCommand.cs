@@ -64,6 +64,15 @@ internal sealed class CpzCommand
             return;
         }
 
+
+        var packageFiles = new DirectoryInfo(@"C:\Users\ewilliams\.nuget\packages\crestron.simplsharp.sdk.program\2.20.66\build").GetFiles("*.*", SearchOption.AllDirectories);
+
+        foreach (var packageFile in packageFiles)
+        {
+            Console.WriteLine(packageFile);
+        }
+
+
         var version = _projectService.QueryProjectForSimplSharpProgramVersion(path);
 
         if (version == null)
