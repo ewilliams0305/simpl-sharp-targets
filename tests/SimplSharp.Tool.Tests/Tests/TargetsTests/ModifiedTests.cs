@@ -124,7 +124,7 @@ public class ModifiedTests
 
         var (_, modified) = _fixture.ModifyBuildTarget(doc);
 
-        modified.Should().BeFalse(because: "The xml didn't contain the element and now it does");
+        modified.Should().BeFalse(because: "The XML already contains the targets, no need to modify");
     }
     
 }
