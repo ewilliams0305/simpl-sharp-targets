@@ -44,7 +44,7 @@ internal class FilePaths
     public static string TargetLibraryProject => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "SimplSharp.Library.csproj");
     public static string TargetArchivePath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "bin", Configuration, "net472", "SimplSharp.Library.clz");
     
-    public static string WrapperLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Targets.Clz", "bin", Configuration, "net472", "SimplSharp.Targets.Clz.dll");
+    public static string WrapperLibraryPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Targets.Clz", "SimplSharp.Targets.Clz.csproj");
     public static string WrapperClzPath => Path.Combine(Directory.GetCurrentDirectory(), "example", "SimplSharp.Targets.Clz", "bin", Configuration, "net472", "SimplSharp.Targets.Clz.clz");
     
     public static string ManifestPath => Path.Combine(Directory.GetCurrentDirectory(), "tests", "SimplSharp.Library", "bin", Configuration, "net472", "ProgramInfo.config");

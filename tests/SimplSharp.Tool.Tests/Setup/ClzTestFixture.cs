@@ -3,6 +3,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
+using Crestron.SimplSharp.CrestronIO;
+using File = System.IO.File;
 
 namespace SimplSharp.Tool.Tests.Setup;
 
@@ -30,12 +32,18 @@ public class ClzTestFixture : IAsyncLifetime
     }
 
 
-    public (string output, int exitCode) CreateClz(string? targetAssembly = null, string? destination = null)
+    public (string output, int exitCode) CreateClz(string? targetProject = null, string? destination = null)
     {
-        var assemblyPath = targetAssembly ?? FilePaths.TargetLibraryPath;
+        var projectPath = targetProject ?? FilePaths.TargetLibraryProject;
+#if DEBUG
         var args = destination != null
-            ? "clz -p " + assemblyPath + "-d" + destination
-            : "clz -p " + assemblyPath;
+            ? "clz -p " + projectPath + " -c Debug" + "-d" + destination
+            : "clz -p " + projectPath + " -c Debug";
+#else
+        var args = destination != null
+            ? "clz -p " + projectPath + " -c Release" + "-d" + destination
+            : "clz -p " + projectPath + " -c Release";
+#endif
 
         var processStartInfo = new ProcessStartInfo
         {

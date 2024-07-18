@@ -1,5 +1,5 @@
 ﻿#pragma warning disable IDE0290
-#pragma warning disable IDE0300
+#pragma warning disable IDE0041
 
 using Cocona;
 using Microsoft.Extensions.Logging;
@@ -15,17 +15,20 @@ internal sealed class ClzCommand
     private readonly ILogger<ClzCommand> _logger;
     private readonly ManifestService _manifestService;
     private readonly ArchiveService _archiveService;
+    private readonly ProjectService _projectService;
 
     /// <summary>
     /// Creates a new instance of the command
     /// </summary>
     /// <param name="logger">A provided console logger</param>
     /// <param name="manifestService">The manifest service to compile a manifest information file.</param>
-    public ClzCommand(ILogger<ClzCommand> logger, ManifestService manifestService, ArchiveService archiveService)
+    /// <param name="archiveService">Service used to pack the CLZ</param>
+    public ClzCommand(ILogger<ClzCommand> logger, ManifestService manifestService, ArchiveService archiveService, ProjectService projectService)
     {
         _logger = logger;
         _manifestService = manifestService;
         _archiveService = archiveService;
+        _projectService = projectService;
     }
 
 
@@ -33,46 +36,69 @@ internal sealed class ClzCommand
     public void CreateClz(
         [Option(
             shortName: 'p',
-            Description = "File path for the compiled assembly that will be converted to a SimplSharp CLZ",
+            Description = "File path for the csproj file that will generate a SimplSharpPro CLZ",
             ValueName = "path")] string path,
         [Option(
+            shortName: 't',
+            Description = "Target framework to compile",
+            ValueName = "target")] string target = "net472",
+        [Option(
+            shortName: 'a',
+            Description = "Output assembly full path, if nothing is provided this argument will default to the bin/",
+            ValueName = "assembly")] string? assembly = null,
+        [Option(
+            shortName: 'c',
+            Description = "The target projects build profile",
+            ValueName = "profile")] string profile = "Release",
+        [Option(
             shortName: 'd',
-            Description = "Newly created CPZ destination",
-            ValueName = "destination")] string? destination)
+            Description = "Newly created CLZ destination",
+            ValueName = "destination")] string? destination = null)
     {
 
         var info = new FileInfo(path);
 
         if (!info.Exists)
         {
-            _logger.LogError("Target assembly not found {path}", path);
+            _logger.LogError("Target csproj not found {path}", path);
             Environment.Exit(1);
+            return;
+        }
+
+        var version = _projectService.QueryProjectForSimplSharpLibraryVersion(path);
+
+        if (version == null)
+        {
+            _logger.LogError("The target project does not reference the Crestron.SimplSharp.SDK.Library package {path}", path);
+            Environment.Exit(2);
             return;
         }
 
         try
         {
-            var assembly = Assembly.LoadFrom(path);
+            var assemblyPath = assembly ?? Path.Combine(info.DirectoryName!, "bin", profile, target, info.Name.Replace("csproj", "dll"));
+            var loadedAssembly = Assembly.LoadFrom(assemblyPath);
 
-            if (assembly is null)
+            if (ReferenceEquals(loadedAssembly, null))
             {
                 _logger.LogError("Failed to load the assembly at {path}", path);
                 Environment.Exit(2);
                 return;
             }
 
-            _logger.LogInformation("Creating a SIMPL Sharp Library from the provided assembly {assembly}", assembly);
+            _logger.LogInformation("Creating a SIMPL Sharp Program from the provided assembly {assembly}", loadedAssembly);
 
-            var assemblyName = assembly.GetName();
+            var assemblyName = loadedAssembly.GetName();
             var targetName = assemblyName.Name + Global.LibraryExtension;
             var targetPath = destination is not null
                 ? Path.Combine(destination, targetName)
-                : path.Replace(".dll", Global.LibraryExtension);
+                : assemblyPath.Replace(".dll", Global.LibraryExtension);
 
             if (!_manifestService.CreateClzManifestXml(
-                    assembly: assembly, 
+                    assembly: loadedAssembly, 
                     targetName: targetName, 
                     targetPath: targetPath, 
+                    sdkVersion: version,
                     out var manifest))
             {
                 _logger.LogError("Failed creating the manifest from the assembly {assembly}", assembly);
@@ -82,7 +108,7 @@ internal sealed class ClzCommand
 
             manifest!.Save(_manifestService.CreateManifestFileName(targetPath));
 
-            if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath))
+            if (!_archiveService.CreateSimplSharpArchive(TargetType.Library, targetPath, version))
             {
                 _logger.LogError("Failed creating the archive from the assembly {assembly}", assembly);
                 Environment.Exit(2);

@@ -57,10 +57,10 @@
 
   <Target Name="SimplSharpBuildArchive" BeforeTargets="AfterBuild">
     <Message Importance="high" Text="----> Creating SIMPL Sharp Archive $(OutputPath)\$(AssemblyName).dll ----> $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'"/>
-    <Exec Command="$(ToolCommand) -p $(OutputPath)\$(AssemblyName).dll -d $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'" />
+    <Exec Command="$(ToolCommand) -p $(MSBuildProjectFullPath) -t $(TargetFramework) -c $(Configuration) -a $(OutputPath)\$(AssemblyName).dll -d $(OutputPath)" Condition="'$(IsCustomOutputPath)' == 'true'" />
 
     <Message Importance="high" Text="----> Creating SIMPL Sharp Archive $(MSBuildProjectDirectory)\$(OutputPath)$(AssemblyName).dll ----> $(MSBuildProjectDirectory)\$(OutputPath)" Condition="'$(IsCustomOutputPath)' != 'true'"/>
-    <Exec Command="$(ToolCommand) -p $(MSBuildProjectDirectory)\$(OutputPath)$(AssemblyName).dll" Condition="'$(IsCustomOutputPath)' != 'true'" />
+    <Exec Command="$(ToolCommand) -p $(MSBuildProjectFullPath) -t $(TargetFramework) -c $(Configuration) -a $(MSBuildProjectDirectory)\$(OutputPath)$(AssemblyName).dll" Condition="'$(IsCustomOutputPath)' != 'true'" />
   </Target>
 
 </Project>
