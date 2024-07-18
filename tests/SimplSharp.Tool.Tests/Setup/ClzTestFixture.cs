@@ -34,15 +34,16 @@ public class ClzTestFixture : IAsyncLifetime
 
     public (string output, int exitCode) CreateClz(string? targetProject = null, string? destination = null)
     {
-        var projectPath = @".\tests\SimplSharp.Library\SimplSharp.Library.csproj";//targetProject ?? FilePaths.TargetLibraryProject;
+        var projectPath = targetProject ?? FilePaths.TargetLibraryProject;
+#if DEBUG
         var args = destination != null
-            ? "clz -p " + projectPath + " -t 472" + " -c Debug" + "-d" + destination
-            : "clz -p " + projectPath + " -t 472" + " -c Debug";
-
-        if (!File.Exists(projectPath))
-        {
-            throw new System.IO.FileNotFoundException(projectPath);
-        }
+            ? "clz -p " + projectPath + " -c Debug" + "-d" + destination
+            : "clz -p " + projectPath + " -c Debug";
+#else
+        var args = destination != null
+            ? "clz -p " + projectPath + " -c Release" + "-d" + destination
+            : "clz -p " + projectPath + " -c Release";
+#endif
 
         var processStartInfo = new ProcessStartInfo
         {

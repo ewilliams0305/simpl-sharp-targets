@@ -18,19 +18,14 @@ public class ArchiveTests(ClzTestFixture fixture)
     [Fact]
     public void ClzCommand_ExitsBad_WhenArchive_IsNotCreated()
     {
-        var (_, exitCode) = fixture.CreateClz("invalid_file.dll");
+        var (_, exitCode) = fixture.CreateClz("invalid_file.csproj");
 
         exitCode.Should().Be(1, because: "The command should not create an clz from nothing");
     }
     
     [Fact]
-    public void ClzCommand_CreatesArchiveFile_WhenAssemblyIsValidTarget()
+    public void ClzCommand_CreatesArchiveFile_WhenProjectIsValidTarget()
     {
-
-        if (File.Exists(FilePaths.TargetLibraryProject))
-        {
-            Console.WriteLine("ededed");
-        }
 
         FilePaths.DeleteExistingClz();
 
@@ -42,11 +37,11 @@ public class ArchiveTests(ClzTestFixture fixture)
     }
     
     [Fact]
-    public void ClzCommand_DoesNotCreatesArchiveFile_WhenAssemblyIsNotValidTarget()
+    public void ClzCommand_DoesNotCreatesArchiveFile_WhenProjectIsNotValidTarget()
     {
         FilePaths.DeleteExistingClz();
 
-        fixture.CreateClz("invalid_file.dll");
+        fixture.CreateClz("invalid_file.csproj");
 
         var exists = File.Exists(FilePaths.TargetArchivePath);
 
