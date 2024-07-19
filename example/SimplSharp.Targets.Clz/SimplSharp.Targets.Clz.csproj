@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net6</TargetFrameworks>
     <UserSecretsId>31c2a3ee-9da4-4cb0-a506-a0a74d02c754</UserSecretsId>
   </PropertyGroup>
 
@@ -12,9 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Crestron.SimplSharp.SDK.Library" Version="2.20.66" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SimplSharp.Library.Targets" Version="0.1.10-cpz.2" />
+    <PackageReference Include="SimplSharp.Library.Targets" Version="0.2.0-bug-install-tool.1" />
   </ItemGroup>
 
 </Project>
