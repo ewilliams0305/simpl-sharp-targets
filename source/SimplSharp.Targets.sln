@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D746568C-4
 		..\.github\workflows\dotnet-release.yml = ..\.github\workflows\dotnet-release.yml
 		..\.github\workflows\dotnet-test.yml = ..\.github\workflows\dotnet-test.yml
 		..\README.md = ..\README.md
+		..\.github\workflows\simpl-sharp.yml = ..\.github\workflows\simpl-sharp.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{DB484083-BFFB-4BC5-9F29-CDB4C1880F52}"
@@ -33,6 +34,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Program.Targets", "SimplSharp.Program.Targets\SimplSharp.Program.Targets.csproj", "{0AC3E4AE-39F5-488D-A872-725C6A1667FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Targets.Cpz", "..\example\SimplSharp.Targets.Cpz\SimplSharp.Targets.Cpz.csproj", "{F0658301-B368-4530-8274-94E58EFA877B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplSharp.Action.Clz", "..\example\SimplSharp.Action.Clz\SimplSharp.Action.Clz.csproj", "{3D4E4010-2A2C-4AF6-A68A-5B7B2D76E87D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +71,10 @@ Global
 		{0AC3E4AE-39F5-488D-A872-725C6A1667FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F0658301-B368-4530-8274-94E58EFA877B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F0658301-B368-4530-8274-94E58EFA877B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D4E4010-2A2C-4AF6-A68A-5B7B2D76E87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D4E4010-2A2C-4AF6-A68A-5B7B2D76E87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D4E4010-2A2C-4AF6-A68A-5B7B2D76E87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D4E4010-2A2C-4AF6-A68A-5B7B2D76E87D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +88,7 @@ Global
 		{8229BEB4-1631-4625-A2A7-202609D02395} = {CAC12CC3-5310-4450-9406-4731559BEC22}
 		{0AC3E4AE-39F5-488D-A872-725C6A1667FD} = {B65F950E-32F9-42F5-BDEE-746766B0F104}
 		{F0658301-B368-4530-8274-94E58EFA877B} = {DB484083-BFFB-4BC5-9F29-CDB4C1880F52}
+		{3D4E4010-2A2C-4AF6-A68A-5B7B2D76E87D} = {DB484083-BFFB-4BC5-9F29-CDB4C1880F52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64F92463-70FE-4CDD-8B58-FF9B32A0452D}
