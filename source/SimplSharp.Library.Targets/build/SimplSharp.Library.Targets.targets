@@ -34,7 +34,7 @@
       If the targets are found and missing the overrides the file will be updated with this the overrides
       IF there is no targets file a new file will be created.
   -->
-  <Target Name="CreateOrModifyBuildTargets" BeforeTargets="BeforeBuild">
+  <Target Name="CreateOrModifyBuildTargets" BeforeTargets="DispatchToInnerBuilds">
     <Message Importance="high" Text="----> Creating Directory.Build.targets file in the $(MSBuildProjectDirectory) directory"/>
     <Message Importance="high" Text="----> If the targets already exist the overrides will be added to the file"/>
     <Exec Command="$(TargetsCommand) -d $(MSBuildProjectDirectory)" />
