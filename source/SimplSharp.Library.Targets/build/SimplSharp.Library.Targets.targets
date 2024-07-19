@@ -16,17 +16,11 @@
         This will ensure this package always uses the correct version of the tooling it targets.
         This will happen from github actions prior to the dotnet build command.
     -->
-    <ToolVersion>0.1.3</ToolVersion>
+    <ToolVersion>0.1.10</ToolVersion>
     <ArchiveExtension>.clz</ArchiveExtension>
   </PropertyGroup>
 
   <!-- Installation -->
-
-  <Target Name="InstallTools" BeforeTargets="CreateOrModifyBuildTargets">
-    <Message Importance="high" Text="Checking for SimplSharp.Tool updates $(ToolVersion)" />
-    <Exec Command="dotnet tool install SimplSharp.Tool --version $(ToolVersion) --create-manifest-if-needed --allow-downgrade" />
-  </Target>
-
 
   <!-- 
       Conditionally Creates a Directory.Build.targets file that overrides the SIMPL Sharp targets
@@ -34,7 +28,9 @@
       If the targets are found and missing the overrides the file will be updated with this the overrides
       IF there is no targets file a new file will be created.
   -->
-  <Target Name="CreateOrModifyBuildTargets" BeforeTargets="DispatchToInnerBuilds">
+  <Target Name="ProjectSetup" BeforeTargets="BeforeBuild" Condition="'$(TargetFrameworks)' == '' OR $(TargetFrameworks.EndsWith($(TargetFramework)))">
+    <Message Importance="high" Text="Checking for SimplSharp.Tool updates $(ToolVersion)" />
+    <Exec Command="dotnet tool install SimplSharp.Tool --version $(ToolVersion) --create-manifest-if-needed --allow-downgrade" />
     <Message Importance="high" Text="----> Creating Directory.Build.targets file in the $(MSBuildProjectDirectory) directory"/>
     <Message Importance="high" Text="----> If the targets already exist the overrides will be added to the file"/>
     <Exec Command="$(TargetsCommand) -d $(MSBuildProjectDirectory)" />
