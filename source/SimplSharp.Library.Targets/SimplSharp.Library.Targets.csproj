@@ -13,7 +13,7 @@
     <PackageIcon>target.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.0.33</Version>
+    <Version>12.0.10</Version>
     <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
 
