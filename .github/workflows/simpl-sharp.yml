@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Simpl Sharp
-      uses: ewilliams0305/simpl-sharp-actions@v0.1.0
+      uses: ewilliams0305/simpl-sharp-actions@v0.0.18
       id: clz 
       with: 
         project: ${{ matrix.project }}
