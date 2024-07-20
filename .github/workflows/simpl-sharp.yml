@@ -7,6 +7,11 @@ jobs:
   simpl-sharp-build:
     
     runs-on: ubuntu-latest    
+    strategy:
+      matrix:
+        project: 'example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj'
+        target: ['net472', 'net6']
+        configuration: Release
 
     steps:
 
@@ -14,12 +19,12 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Simpl Sharp
-      uses: ewilliams0305/simpl-sharp-actions@v0.0.18
+      uses: ewilliams0305/simpl-sharp-actions@v0.1.0
       id: clz 
       with: 
-        project: example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj
-        targets: net472
-        configuration: Release
+        project: ${{ matrix.project }}
+        targets: ${{ matrix.target }}
+        configuration: ${{ matrix.configuration }}
 
     - name: Display CLZ Output path
       run: echo ${{ steps.clz.outputs.clz_file }}
