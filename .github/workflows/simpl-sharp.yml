@@ -7,6 +7,11 @@ jobs:
   simpl-sharp-build:
     
     runs-on: ubuntu-latest    
+    strategy:
+      matrix:
+        project: 'example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj'
+        target: ['net472', 'net6']
+        configuration: Release
 
     steps:
 
@@ -14,8 +19,35 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Simpl Sharp
-      uses: ewilliams0305/simpl-sharp-actions@v0.0.7
+      uses: ewilliams0305/simpl-sharp-actions@v0.1.0
+      id: clz 
       with: 
-        project: example/SimplSharp.Action.Clz
-        targets: net472
-        configuration: Release
+        project: ${{ matrix.project }}
+        targets: ${{ matrix.target }}
+        configuration: ${{ matrix.configuration }}
+
+    - name: Display CLZ Output path
+      run: echo ${{ steps.clz.outputs.clz_file }}
+
+      # Note: The output path will be relative to your workspace hence adding the ./ to the begining
+      # in this example an input: example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj will produce a file path clz/net472/SimplSharp.Action.Clz.clz
+    - name: Upload CLZ Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: clz_file
+        path: ./${{ steps.clz.outputs.clz_file }}
+
+      # Note: The we can target the aartifact directory for each and every clz file
+      # in this example an input: example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj will produce a glob path clz/*/**.clz
+    - name: Upload CLZ Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: clz_files
+        path: ./${{ steps.clz.outputs.artifacts_path }}
+
+    - name: Validate the CLZ path
+      run: |
+        if [ ! -f ./${{ steps.clz.outputs.clz_file }} ]; then
+          echo "Error: CLZ file not found at ./${{ steps.clz.outputs.clz_file }}"
+          exit 1
+        fi
