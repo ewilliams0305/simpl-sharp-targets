@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest    
     strategy:
       matrix:
-        project: 'example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj'
+        project: ['example/SimplSharp.Action.Clz/SimplSharp.Action.Clz.csproj']
         target: ['net472', 'net6']
-        configuration: Release
+        configuration: [Release]
 
     steps:
 
